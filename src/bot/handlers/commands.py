@@ -6,6 +6,7 @@ router = Router()
 
 @router.message(Command('start'))
 async def cmd_start(message: types.Message):
+    await message.answer_sticker('CAACAgIAAxkBAAMDaVS6X1rRba6dWlSRsQLWwo3fuasAAj5PAAIXwFFJKUtKhmRzC3A4BA')
     await message.answer('Привет! Это игра "Угадай число"',
                          reply_markup=get_persistent_menu()
                          )
