@@ -9,8 +9,6 @@ def get_persistent_menu() -> ReplyKeyboardMarkup:
         ],
         resize_keyboard=True, # Подстраивание размера кнопки
         is_persistent=True, # Создание кнопки открытия/закрытия меню рядом с полем ввода
-        selective=True,
-        one_time_keyboard=False
     )
 
 def get_remove_menu():
