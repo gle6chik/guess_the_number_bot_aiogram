@@ -4,8 +4,9 @@ from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
 
 from bot.handlers.commands import router as commands_router
-from bot.handlers.reply import router as reply_router
+from bot.handlers.reply_before_game import router as reply_router
 from bot.handlers.text import router as text_router
+from bot.handlers.callbacks import router as callback_router
 
 # Загрузка токена из переменной окружения
 load_dotenv()
@@ -20,6 +21,7 @@ dp = Dispatcher()
 dp.include_router(commands_router)
 dp.include_router(reply_router)
 dp.include_router(text_router)
+dp.include_router(callback_router)
 
 async def main():
     await dp.start_polling(bot)
