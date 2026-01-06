@@ -1,6 +1,5 @@
 from aiogram import Router, types, F
 from game.main import game_process as play
-from aiogram.types import ReplyKeyboardRemove
 
 router = Router()
 

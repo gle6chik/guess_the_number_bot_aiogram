@@ -8,8 +8,8 @@ async def text_handler(message: types.Message):
 
     await message.answer(f"Я вижу, что ты отправляешь) Ты написал: {text}")
 
-    if text.isdigit():
-        number = int(text)
+    if text.isdigit(): # type: ignore
+        number = int(text) # type: ignore
         await message.answer(f"И кстати, {number} - это число")
     else:
         await message.answer(f"{text} - это не число")
