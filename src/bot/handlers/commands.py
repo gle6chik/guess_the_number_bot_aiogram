@@ -1,6 +1,6 @@
 from aiogram import Router, types
 from aiogram.filters import Command
-from bot.keyboards.menues import get_start_menu, get_second_menu
+from bot.keyboards.menues import get_start_menu
 
 router = Router()
 
@@ -13,10 +13,10 @@ async def cmd_start(message: types.Message):
 
 @router.message(Command('help'))
 async def cmd_help(message: types.Message):
-    await message.answer('Тут, наверное, будут правила игры, но может быть я изменю название самой команды')
+    await message.answer('Тут будет что-то про навигацию по боту, я пока не придумал')
 
-@router.message(Command('change_menu'))
+@router.message(Command('menu'))
 async def cmd_change_menu(message: types.Message):
-    await message.answer('Меню изменилось!',
-                         reply_markup=get_second_menu()
+    await message.answer('Меню открыто',
+                         reply_markup=get_start_menu()
                          )

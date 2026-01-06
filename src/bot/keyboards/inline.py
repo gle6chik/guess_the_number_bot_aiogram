@@ -8,6 +8,6 @@ def get_choice_of_difficulty():
     builder.button(text='Сложный', callback_data='start_difficult')
     builder.button(text='Назад', callback_data='back')
 
-    builder.adjust(1) # Расположение кнопок по вертикали в 1 столбец
+    builder.adjust(2, 2) # Расположение кнопок в таблице 2 на 2
 
     return builder.as_markup()

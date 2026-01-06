@@ -5,18 +5,17 @@ def get_start_menu() -> ReplyKeyboardMarkup:
         keyboard=[
             [KeyboardButton(text='Новая игра')],
             [KeyboardButton(text='Правила игры')],
-            [KeyboardButton(text='О боте')]
+            [KeyboardButton(text='О боте')],
+            [KeyboardButton(text='Скрыть меню')]
         ],
         resize_keyboard=True, # Подстраивание размера кнопки
-        is_persistent=True # Создание кнопки открытия/закрытия меню рядом с полем ввода
+        is_persistent=True, # Создание кнопки открытия/закрытия меню рядом с полем ввода
     )
 
-def get_second_menu() -> ReplyKeyboardMarkup:
+def get_during_game_menu() -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup(
         keyboard=[
-            [KeyboardButton(text='Test1')],
-            [KeyboardButton(text='Test2')],
-            [KeyboardButton(text='Test3')]
+            [KeyboardButton(text='Выйти из игры')]
         ],
         resize_keyboard=True,
         is_persistent=True
