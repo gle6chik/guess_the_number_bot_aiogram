@@ -1,5 +1,5 @@
 from aiogram import Router, types, F
-from game.main import game_process as play
+from cgame.main import game_process as play
 
 router = Router()
 

@@ -1,6 +1,6 @@
 from aiogram import types
 from bot.keyboards.menues import get_during_game_menu
-from game.difficulties import get_attempts, get_range
+from cgame.difficulties import get_attempts, get_range
 
 async def game_process(message: types.Message, difficulty: str):
     await message.answer('Игра началась', reply_markup=get_during_game_menu())
