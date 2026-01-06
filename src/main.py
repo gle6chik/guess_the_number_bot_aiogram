@@ -1,17 +1,12 @@
-import os
 import asyncio
-from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
-
+from config import TOKEN
 from bot.handlers.commands import router as commands_router
 from bot.handlers.reply_before_game import router as reply_before_game_router
 from bot.handlers.reply_during_game import router as reply_during_game_router
 from bot.handlers.text import router as text_router
 from bot.handlers.callbacks import router as callback_router
 
-# Загрузка токена из переменной окружения
-load_dotenv()
-TOKEN = os.getenv('API_TOKEN')
 if TOKEN is None:
     raise ValueError('API_TOKEN не найден в переменных окружения')
 
