@@ -1,6 +1,6 @@
 from aiogram import Router, types, F
-from bot.keyboards.menues import get_start_menu
-from bot.keyboards.inline import get_choice_of_difficulty
+from ..keyboards.reply import get_start_menu
+from ..keyboards.inline import get_choice_of_difficulty
 from aiogram.types import ReplyKeyboardRemove
 
 router = Router()

@@ -1,5 +1,5 @@
 from aiogram import Router, types, F
-from bot.keyboards.menues import get_start_menu
+from menu.keyboards.reply import get_start_menu
 
 router = Router()
 
