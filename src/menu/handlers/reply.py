@@ -24,9 +24,3 @@ async def about_handler(message: types.Message):
     await message.answer('Здесь будет информация о боте',
                          reply_markup=get_start_menu()
                          )
-
-@router.message(F.text == 'Скрыть меню', StateFilter(UserStates.menu))
-async def hide_menu_handler(message: types.Message):
-    await message.answer('Меню скрыто',
-                         reply_markup=ReplyKeyboardRemove()
-                         )

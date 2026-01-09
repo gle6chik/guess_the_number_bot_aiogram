@@ -23,12 +23,6 @@ async def cmd_start(message: types.Message, state: FSMContext, bot: Bot):
     await message.answer('Привет! Это игра "Угадай число"',
                          reply_markup=get_start_menu()
                          )
-    
-@router.message(Command('menu'), StateFilter(UserStates.menu))
-async def cmd_change_menu(message: types.Message):
-    await message.answer('Меню открыто',
-                         reply_markup=get_start_menu()
-                         )
 
 @router.message(Command('help'), StateFilter(UserStates.menu))
 async def cmd_help(message: types.Message):
