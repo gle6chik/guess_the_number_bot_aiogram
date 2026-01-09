@@ -8,6 +8,7 @@ from menu.handlers.callbacks import router as mr_clb
 from menu.handlers.reply import router as mr_rpl
 from menu.handlers.text import router as mr_txt
 
+from game.handlers.commands import router as gr_cmd
 from game.handlers.reply import router as gr_rpl
 from game.handlers.text import router as gr_txt
 
@@ -23,6 +24,7 @@ dp.include_router(mr_clb)
 dp.include_router(mr_rpl)
 dp.include_router(mr_txt)
 
+dp.include_router(gr_cmd)
 dp.include_router(gr_rpl)
 dp.include_router(gr_txt)
 
