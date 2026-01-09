@@ -1,6 +1,7 @@
 import asyncio
 from aiogram import Bot, Dispatcher
 from config import TOKEN
+from states import STORAGE
 
 from menu.handlers.commands import router as mr_cmd
 from menu.handlers.callbacks import router as mr_clb
@@ -14,19 +15,16 @@ if TOKEN is None:
     raise ValueError('API_TOKEN не найден в переменных окружения')
 
 bot = Bot(token=TOKEN)
-dp = Dispatcher()
+dp = Dispatcher(storage=STORAGE)
 
 # Подключение маршрутов к обработчикам
-is_game = False
+dp.include_router(mr_cmd)
+dp.include_router(mr_clb)
+dp.include_router(mr_rpl)
+dp.include_router(mr_txt)
 
-if not is_game:
-    dp.include_router(mr_cmd)
-    dp.include_router(mr_clb)
-    dp.include_router(mr_rpl)
-    dp.include_router(mr_txt)
-else:
-    dp.include_router(gr_rpl)
-    dp.include_router(gr_txt)
+dp.include_router(gr_rpl)
+dp.include_router(gr_txt)
 
 async def main():
     await dp.start_polling(bot)
