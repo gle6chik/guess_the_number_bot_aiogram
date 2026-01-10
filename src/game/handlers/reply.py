@@ -7,6 +7,11 @@ from menu.keyboards.reply import get_start_menu
 from states import UserStates
 from commands.manager import CommandManager
 
+number = 0
+def get_number():
+    global number
+    return number
+
 router = Router()
 
 @router.message(F.text == 'Выйти из игры', StateFilter(UserStates.game))

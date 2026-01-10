@@ -1,6 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-def get_during_game_menu(): #  -> ReplyKeyboardMarkup
+def get_during_game_menu():
     return ReplyKeyboardMarkup(
         keyboard=[
             [KeyboardButton(text='Выйти из игры')],
