@@ -13,8 +13,8 @@ DIFFICULTIES = {
     }
 }
 
-def get_attempts(mode: str):
-    return DIFFICULTIES[mode]['attempts']
+def get_attempts(difficulty: str) -> int:
+    return DIFFICULTIES[f"{difficulty}"]['attempts']
 
-def get_range(mode: str):
-    return DIFFICULTIES[mode]['range']
+def get_range(difficulty: str) -> int:
+    return DIFFICULTIES[f"{difficulty}"]['range']
