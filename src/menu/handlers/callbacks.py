@@ -2,7 +2,7 @@ from aiogram import Router, types, F
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram import Bot
-from game.logic import game_process as play
+from game.logic import start_game as play
 from states import UserStates
 from commands.manager import CommandManager
 

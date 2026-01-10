@@ -1,17 +1,23 @@
 DIFFICULTIES = {
     'easy': {
+        'description': 'лёгкий',
         'attempts': 10,
         'range': 100
     },
     'medium': {
+        'description': 'средний',
         'attempts': 7,
         'range': 100
     },
     'difficult': {
-        'attempts': 12,
+        'description': 'сложный',
+        'attempts': 10,
         'range': 1000
     }
 }
+
+def get_description(difficulty: str) -> int:
+    return DIFFICULTIES[f"{difficulty}"]['description']
 
 def get_attempts(difficulty: str) -> int:
     return DIFFICULTIES[f"{difficulty}"]['attempts']
