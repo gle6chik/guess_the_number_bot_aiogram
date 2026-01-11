@@ -7,20 +7,18 @@ current_attempt = 0
 ATTEMPTS = 0
 SECRET_NUMBER = 0
 
-def game(number: int) -> str:
+def game(number: int):
     global current_attempt
     current_attempt += 1
 
-    if current_attempt > ATTEMPTS:
-        return f"Количество попыток закончилось...\nЗагаданное число - {SECRET_NUMBER}"
+    if current_attempt >= ATTEMPTS:
+        return f"Количество попыток закончилось...\nЗагаданное число - {SECRET_NUMBER}", 1
     elif number == SECRET_NUMBER:
-        return f"Вы выиграли! Загаданное число - {SECRET_NUMBER}"
+        return f"Вы выиграли! Загаданное число - {SECRET_NUMBER}", 1
     elif number < SECRET_NUMBER:
-        return f"Загаданное число БОЛЬШЕ\nПопыток осталось: {ATTEMPTS - current_attempt}"
+        return f"Загаданное число БОЛЬШЕ\nПопыток осталось: {ATTEMPTS - current_attempt}", 0
     elif number > SECRET_NUMBER:
-        return f"Загаданное число МЕНЬШЕ\nПопыток осталось: {ATTEMPTS - current_attempt}"
-    
-    return 'Другое'
+        return f"Загаданное число МЕНЬШЕ\nПопыток осталось: {ATTEMPTS - current_attempt}", 0
 
 async def start_game(message: types.Message, difficulty: str):
     global current_attempt

@@ -16,7 +16,7 @@ DIFFICULTIES = {
     }
 }
 
-def get_description(difficulty: str) -> int:
+def get_description(difficulty: str) -> str:
     return DIFFICULTIES[f"{difficulty}"]['description']
 
 def get_attempts(difficulty: str) -> int:
