@@ -1,4 +1,3 @@
-import asyncio
 from aiogram import Bot
 from aiogram.fsm.state import State
 from aiogram.types import BotCommandScopeChat

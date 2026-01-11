@@ -23,7 +23,7 @@ async def leave_game_handler(message: types.Message, state: FSMContext, bot: Bot
         return
     await CommandManager.set_commands_for_state(bot, message.from_user.id, UserStates.menu)
 
-    await message.answer('Игра остановлена',
+    await message.answer('Игра окончена',
                          reply_markup=get_start_menu()
                          )
 
