@@ -3,36 +3,41 @@ import random
 from .keyboards.reply import get_during_game_menu
 from .difficulties import get_description, get_attempts, get_range
 
-current_attempt = 0
-ATTEMPTS = 0
-SECRET_NUMBER = 0
+user_games = {}
 
-def game(number: int):
-    global current_attempt
-    current_attempt += 1
+def game(user_id: int, number: int):
+    game_data = user_games[user_id]
+    game_data['current_attempt'] += 1
 
-    if current_attempt >= ATTEMPTS:
-        return f"Количество попыток закончилось...\nЗагаданное число - {SECRET_NUMBER}", 1
-    elif number == SECRET_NUMBER:
-        return f"Вы выиграли! Загаданное число - {SECRET_NUMBER}", 1
-    elif number < SECRET_NUMBER:
-        return f"Загаданное число БОЛЬШЕ\nПопыток осталось: {ATTEMPTS - current_attempt}", 0
-    elif number > SECRET_NUMBER:
-        return f"Загаданное число МЕНЬШЕ\nПопыток осталось: {ATTEMPTS - current_attempt}", 0
+    if game_data['current_attempt'] >= game_data['attempts']:
+        secret_num = game_data['secret_number']
+        del user_games[user_id]
+        return f"Количество попыток закончилось...\nЗагаданное число - {secret_num}", 1
+    elif number == game_data['secret_number']:
+        secret_num = game_data['secret_number']
+        del user_games[user_id]
+        return f"Вы выиграли! Загаданное число - {secret_num}", 1
+    elif number < game_data['secret_number']:
+        attempts_left = game_data['attempts'] - game_data['current_attempt']
+        return f"Загаданное число БОЛЬШЕ\nПопыток осталось: {attempts_left}", 0
+    else:  # number > game_data['secret_number']
+        attempts_left = game_data['attempts'] - game_data['current_attempt']
+        return f"Загаданное число МЕНЬШЕ\nПопыток осталось: {attempts_left}", 0
 
-async def start_game(message: types.Message, difficulty: str):
-    global current_attempt
-    global ATTEMPTS
-    global SECRET_NUMBER
+async def start_game(message: types.Message, difficulty: str, user_id: int):
+    attempts = get_attempts(difficulty=difficulty)
+    range_num = get_range(difficulty=difficulty)
 
-    current_attempt = 0
-    ATTEMPTS = get_attempts(difficulty)
-    RANGE = get_range(difficulty)
-    SECRET_NUMBER = random.randint(1, RANGE)
+    user_games[user_id] = {
+        'current_attempt': 0,
+        'attempts': attempts,
+        'secret_number': random.randint(1, range_num),
+        'range': range_num
+    }
 
     await message.answer(f"Сложность: {get_description(difficulty)}\n"
-                         f"Попыток: {ATTEMPTS}\n"
-                         f"Диапазон: {RANGE}",
+                         f"Попыток: {attempts}\n"
+                         f"Диапазон: {range_num}",
                          reply_markup=get_during_game_menu())
     
     await message.answer('Введите число')

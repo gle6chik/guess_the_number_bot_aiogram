@@ -6,6 +6,7 @@ from aiogram.types import ReplyKeyboardRemove
 from menu.keyboards.reply import get_start_menu
 from states import UserStates
 from commands.manager import CommandManager
+from game import logic
 
 number = 0
 def get_number():
@@ -21,6 +22,12 @@ async def leave_game_handler(message: types.Message, state: FSMContext, bot: Bot
     if not message.from_user:
         await message.answer("Ошибка: невозможно определить пользователя")
         return
+    
+    user_id = message.from_user.id
+    # Удаление пользователя из игры при выходе
+    if user_id in logic.user_games:
+        del logic.user_games[user_id]
+
     await CommandManager.set_commands_for_state(bot, message.from_user.id, UserStates.menu)
 
     await message.answer('Игра окончена',
