@@ -12,19 +12,19 @@ def game(user_id: int, number: int):
     if number == game_data['secret_number']:
         secret_num = game_data['secret_number']
         del user_games[user_id]
-        return f"Вы выиграли! Загаданное число - {secret_num}", 1
+        return f"Победа! На {game_data['current_attempt']} попытке из {game_data['attempts']}! Ты молодец! Загаданное число - {secret_num}", 1
 
     if game_data['current_attempt'] >= game_data['attempts']:
         secret_num = game_data['secret_number']
         del user_games[user_id]
-        return f"Количество попыток закончилось...\nЗагаданное число - {secret_num}", 1
+        return f"Количество попыток закончилось...\nЗагаданное число - {secret_num}\nНе переживай, в следующий раз повезёт!", 1
     
     elif number < game_data['secret_number']:
         attempts_left = game_data['attempts'] - game_data['current_attempt']
-        return f"Загаданное число БОЛЬШЕ\nПопыток осталось: {attempts_left}", 0
+        return f"Загаданное число БОЛЬШЕ {number}\nПопыток осталось: {attempts_left}", 0
     elif number > game_data['secret_number']:
         attempts_left = game_data['attempts'] - game_data['current_attempt']
-        return f"Загаданное число МЕНЬШЕ\nПопыток осталось: {attempts_left}", 0
+        return f"Загаданное число МЕНЬШЕ {number}\nПопыток осталось: {attempts_left}", 0
 
 async def start_game(message: types.Message, difficulty: str, user_id: int):
     attempts = get_attempts(difficulty=difficulty)
@@ -39,9 +39,10 @@ async def start_game(message: types.Message, difficulty: str, user_id: int):
     }
 
     await message.answer(f"Режим сложности: {get_description(difficulty)}\n"
-                         f"Попыток: {attempts}\n"
-                         f"Диапазон: {range_num}",
+                         f"У тебя есть <b>{attempts} попыток</b>\n"
+                         f"Я загадал число в диапазоне <b>от 1 до {range_num}</b>, попробуй угадать!",
+                         parse_mode='HTML',
                          reply_markup=get_during_game_menu())
     
-    await message.answer('Введите число')
+    await message.answer('Введи какое-нибудь число')
     

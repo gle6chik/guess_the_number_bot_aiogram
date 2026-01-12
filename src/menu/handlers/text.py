@@ -6,12 +6,4 @@ router = Router()
 
 @router.message(F.text, StateFilter(UserStates.menu))
 async def text_handler(message: types.Message):
-    text = message.text
-
-    await message.answer(f"Мы находимся в режиме МЕНЮ\nТы написал: {text}")
-
-    if text.isdigit(): # type: ignore
-        number = int(text) # type: ignore
-        await message.answer(f"И кстати, {number} - это число")
-    else:
-        await message.answer(f"{text} - это не число")
+    await message.answer('Чтобы сыграть, нажми "Новая игра"\nЧтобы посмотреть все действия, напиши /help')

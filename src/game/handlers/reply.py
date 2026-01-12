@@ -13,21 +13,15 @@ router = Router()
 @router.message(F.text == 'Выйти из игры', StateFilter(UserStates.game))
 async def leave_game_handler(message: types.Message, state: FSMContext, bot: Bot):
     await state.set_state(UserStates.menu)
+    user_id = message.from_user.id # type: ignore
 
-    if not message.from_user:
-        await message.answer("Ошибка: невозможно определить пользователя")
-        return
-    
-    user_id = message.from_user.id
     # Удаление пользователя из игры при выходе
     if user_id in logic.user_games:
         del logic.user_games[user_id]
 
-    await CommandManager.set_commands_for_state(bot, message.from_user.id, UserStates.menu)
+    await CommandManager.set_commands_for_state(bot, message.from_user.id, UserStates.menu) # type: ignore
 
-    await message.answer('Игра окончена',
-                         reply_markup=get_start_menu()
-                         )
+    await message.answer('Игра окончена', reply_markup=get_start_menu())
 
 @router.message(F.text == 'Скрыть меню', StateFilter(UserStates.game))
 async def hide_menu_handler(message: types.Message):

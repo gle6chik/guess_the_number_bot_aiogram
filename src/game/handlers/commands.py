@@ -8,6 +8,6 @@ router = Router()
 
 @router.message(Command('menu'), StateFilter(UserStates.game))
 async def cmd_change_menu(message: types.Message):
-    await message.answer('Меню открыто',
+    await message.answer('Меню открыто\nПродолжаем игру',
                          reply_markup=get_during_game_menu()
                          )
