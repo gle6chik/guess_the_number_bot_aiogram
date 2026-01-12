@@ -1,5 +1,6 @@
 from aiogram import types
 import random
+import time
 from .keyboards.reply import get_during_game_menu
 from .difficulties import get_description, get_attempts, get_range
 from text.text import MESSAGE
@@ -15,7 +16,7 @@ def game(user_id: int, number: int):
         del user_games[user_id]
         return MESSAGE['game']['logic']['win'](game_data['current_attempt'],
                                                game_data['attempts'],
-                                               game_data['secret_number']), 1
+                                               game_data['secret_number']), 2
         # return f"Победа! На {game_data['current_attempt']} попытке из {game_data['attempts']}! Ты молодец! Загаданное число - {secret_num}", 1
 
     if game_data['current_attempt'] >= game_data['attempts']:

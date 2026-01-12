@@ -5,6 +5,7 @@ from ..keyboards.reply import get_start_menu
 from ..keyboards.inline import get_choice_of_difficulty
 from states import UserStates
 from text.text import MESSAGE
+from text.emoji import Emoji
 
 router = Router()
 
@@ -21,6 +22,7 @@ async def rules_handler(message: types.Message):
 
 @router.message(F.text == 'О боте', StateFilter(UserStates.menu))
 async def about_handler(message: types.Message):
+    await message.react([types.ReactionTypeEmoji(emoji=Emoji.LIGHTNING)])
     await message.answer(MESSAGE['menu']['reply']['about'],
                          parse_mode='HTML',
                          reply_markup=get_start_menu())
