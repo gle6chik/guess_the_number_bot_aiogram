@@ -8,11 +8,6 @@ from states import UserStates
 from commands.manager import CommandManager
 from game import logic
 
-number = 0
-def get_number():
-    global number
-    return number
-
 router = Router()
 
 @router.message(F.text == 'Выйти из игры', StateFilter(UserStates.game))

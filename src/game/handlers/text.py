@@ -10,7 +10,6 @@ router = Router()
 @router.message(F.text, StateFilter(UserStates.game))
 async def text_handler(message: types.Message, state: FSMContext, bot: Bot):
     user_id = message.from_user.id # type: ignore
-    print(f"DEBUG text_handler: user_id={user_id}")
     text = message.text
 
     if text.isdigit(): # type: ignore
