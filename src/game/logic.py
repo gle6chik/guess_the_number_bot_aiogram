@@ -1,39 +1,56 @@
 from aiogram import types
 import random
+import time
 from .keyboards.reply import get_during_game_menu
 from .difficulties import get_description, get_attempts, get_range
+from text.text import MESSAGE
 
-current_attempt = 0
-ATTEMPTS = 0
-SECRET_NUMBER = 0
+user_games = {}
 
-def game(number: int):
-    global current_attempt
-    current_attempt += 1
+def game(user_id: int, number: int):
+    game_data = user_games[user_id]
+    game_data['current_attempt'] += 1
 
-    if current_attempt >= ATTEMPTS:
-        return f"Количество попыток закончилось...\nЗагаданное число - {SECRET_NUMBER}", 1
-    elif number == SECRET_NUMBER:
-        return f"Вы выиграли! Загаданное число - {SECRET_NUMBER}", 1
-    elif number < SECRET_NUMBER:
-        return f"Загаданное число БОЛЬШЕ\nПопыток осталось: {ATTEMPTS - current_attempt}", 0
-    elif number > SECRET_NUMBER:
-        return f"Загаданное число МЕНЬШЕ\nПопыток осталось: {ATTEMPTS - current_attempt}", 0
+    if number == game_data['secret_number']:
+        # secret_num = game_data['secret_number']
+        del user_games[user_id]
+        return MESSAGE['game']['logic']['win'](game_data['current_attempt'],
+                                               game_data['attempts'],
+                                               game_data['secret_number']), 2
+        # return f"Победа! На {game_data['current_attempt']} попытке из {game_data['attempts']}! Ты молодец! Загаданное число - {secret_num}", 1
 
-async def start_game(message: types.Message, difficulty: str):
-    global current_attempt
-    global ATTEMPTS
-    global SECRET_NUMBER
-
-    current_attempt = 0
-    ATTEMPTS = get_attempts(difficulty)
-    RANGE = get_range(difficulty)
-    SECRET_NUMBER = random.randint(1, RANGE)
-
-    await message.answer(f"Сложность: {get_description(difficulty)}\n"
-                         f"Попыток: {ATTEMPTS}\n"
-                         f"Диапазон: {RANGE}",
-                         reply_markup=get_during_game_menu())
+    if game_data['current_attempt'] >= game_data['attempts']:
+        # secret_num = game_data['secret_number']
+        del user_games[user_id]
+        return MESSAGE['game']['logic']['lose'](game_data['secret_number']), 1
+        # return f"Количество попыток закончилось...\nЗагаданное число - {secret_num}\nНе переживай, в следующий раз повезёт!", 1
     
-    await message.answer('Введите число')
+    elif number < game_data['secret_number']:
+        attempts_left = game_data['attempts'] - game_data['current_attempt']
+        # return f"Загаданное число БОЛЬШЕ {number}\nПопыток осталось: {attempts_left}", 0
+        return MESSAGE['game']['logic']['more'](number, attempts_left), 0
+    elif number > game_data['secret_number']:
+        attempts_left = game_data['attempts'] - game_data['current_attempt']
+        # return f"Загаданное число МЕНЬШЕ {number}\nПопыток осталось: {attempts_left}", 0
+        return MESSAGE['game']['logic']['less'](number, attempts_left), 0
+
+async def start_game(message: types.Message, difficulty: str, user_id: int):
+    attempts = get_attempts(difficulty=difficulty)
+    range_num = get_range(difficulty=difficulty)
+    secret_number = random.randint(1, range_num)
+
+    user_games[user_id] = {
+        'current_attempt': 0,
+        'attempts': attempts,
+        'secret_number': secret_number,
+        'range': range_num
+    }
+
+    await message.answer(MESSAGE['game']['logic']['start_game'](get_description(difficulty),
+                                                                attempts,
+                                                                range_num), 
+                                                                parse_mode='HTML',
+                                                                reply_markup=get_during_game_menu())
+    
+    await message.answer('Введи какое-нибудь число')
     
