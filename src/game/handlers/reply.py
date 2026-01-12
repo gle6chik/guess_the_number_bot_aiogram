@@ -7,6 +7,7 @@ from menu.keyboards.reply import get_start_menu
 from states import UserStates
 from commands.manager import CommandManager
 from game import logic
+from text.text import MESSAGE
 
 router = Router()
 
@@ -21,10 +22,8 @@ async def leave_game_handler(message: types.Message, state: FSMContext, bot: Bot
 
     await CommandManager.set_commands_for_state(bot, message.from_user.id, UserStates.menu) # type: ignore
 
-    await message.answer('Игра окончена', reply_markup=get_start_menu())
+    await message.answer(MESSAGE['game']['reply']['end_game'], reply_markup=get_start_menu())
 
 @router.message(F.text == 'Скрыть меню', StateFilter(UserStates.game))
 async def hide_menu_handler(message: types.Message):
-    await message.answer('Меню скрыто\nПродолжаем игру',
-                         reply_markup=ReplyKeyboardRemove()
-                         )
+    await message.answer(MESSAGE['game']['reply']['hide_menu'], reply_markup=ReplyKeyboardRemove())

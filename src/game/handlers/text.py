@@ -4,6 +4,7 @@ from aiogram.fsm.context import FSMContext
 from states import UserStates
 from game import logic
 from ..handlers.reply import leave_game_handler as game_over
+from text.text import MESSAGE
 
 router = Router()
 
@@ -20,4 +21,4 @@ async def text_handler(message: types.Message, state: FSMContext, bot: Bot):
         if end_code == 1:
             await game_over(message, state, bot)
     else:
-        await message.answer('Здесь нужно писать только числа')
+        await message.answer(MESSAGE['game']['text']['text_only'])

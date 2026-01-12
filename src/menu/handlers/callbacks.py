@@ -5,7 +5,7 @@ from aiogram import Bot
 from game.logic import start_game as play
 from states import UserStates
 from commands.manager import CommandManager
-
+from text.text import MESSAGE
 
 router = Router()
 
@@ -35,5 +35,5 @@ async def difficult_handler(callback: types.CallbackQuery, state: FSMContext, bo
 
 @router.callback_query(F.data == 'back', StateFilter(UserStates.menu))
 async def back_handler(callback: types.CallbackQuery):
-    await callback.message.edit_text('Нажми "Новая игра", чтобы сыграть!') # type: ignore
+    await callback.message.edit_text(MESSAGE['menu']['callback']['back']) # type: ignore
     await callback.answer()
