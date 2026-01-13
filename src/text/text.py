@@ -75,7 +75,8 @@ MESSAGE = {
                 f"Режим сложности: {difficulty}\n"
                 f"У тебя есть <b>{attempts} попыток</b>\n"
                 f"Я загадал число в диапазоне <b>от 1 до {range_num}</b>, попробуй угадать! {Emoji.WINK}"
-            )
+            ),
+            'out_range': f"{Emoji.EXCLAMATION_MARK} Это число вне диапазона! Попробуй другое"
         }
     }
 }

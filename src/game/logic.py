@@ -12,26 +12,24 @@ def game(user_id: int, number: int):
     game_data['current_attempt'] += 1
 
     if number == game_data['secret_number']:
-        # secret_num = game_data['secret_number']
         del user_games[user_id]
         return MESSAGE['game']['logic']['win'](game_data['current_attempt'],
                                                game_data['attempts'],
                                                game_data['secret_number']), 2
-        # return f"Победа! На {game_data['current_attempt']} попытке из {game_data['attempts']}! Ты молодец! Загаданное число - {secret_num}", 1
 
     if game_data['current_attempt'] >= game_data['attempts']:
-        # secret_num = game_data['secret_number']
         del user_games[user_id]
         return MESSAGE['game']['logic']['lose'](game_data['secret_number']), 1
-        # return f"Количество попыток закончилось...\nЗагаданное число - {secret_num}\nНе переживай, в следующий раз повезёт!", 1
+    
+    if number < 1 or number > game_data['range']:
+        return MESSAGE['game']['logic']['out_range'], 0
     
     elif number < game_data['secret_number']:
         attempts_left = game_data['attempts'] - game_data['current_attempt']
-        # return f"Загаданное число БОЛЬШЕ {number}\nПопыток осталось: {attempts_left}", 0
         return MESSAGE['game']['logic']['more'](number, attempts_left), 0
     elif number > game_data['secret_number']:
         attempts_left = game_data['attempts'] - game_data['current_attempt']
-        # return f"Загаданное число МЕНЬШЕ {number}\nПопыток осталось: {attempts_left}", 0
+
         return MESSAGE['game']['logic']['less'](number, attempts_left), 0
 
 async def start_game(message: types.Message, difficulty: str, user_id: int):
