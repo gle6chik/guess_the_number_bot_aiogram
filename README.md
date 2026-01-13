@@ -41,18 +41,18 @@ In each mode, the user can use buttons and commands to control the bot and gamep
 
 ## Installation
 ```bash
-# clone a repository
+# Clone a repository
 git clone git@github.com:gle6chik/guess_the_number_bot_aiogram.git
 cd guess_the_number_bot_aiogram
 
-# create a virtual environment
+# Create a virtual environment
 python3 -m venv venv
 
-# activate the virtual environment
-# for Linux/Mac
+# Activate the virtual environment
+# For Linux/Mac
 source venv/bin/activate
 
-# install dependencies
+# Install dependencies
 pip install -r requirements.txt
 ```
 
