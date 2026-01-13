@@ -4,6 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://python.org)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/gle6chik/guess_the_number_bot_aiogram/releases/tag/v1.0.0)
 
 ## About the project
 This bot implements the classic "Guess the Number" game in Telegram.
