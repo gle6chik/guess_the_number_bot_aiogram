@@ -22,7 +22,7 @@ MESSAGE = {
                 f"2. Команды {Emoji.COMMAND}\n"
                 f"   {Emoji.MARKER} /start - перезапустить бота\n"
                 f"   {Emoji.MARKER} /help - открыть информацию о навигации по боту (данная справка)\n"
-                f"   {Emoji.MARKER} /test - test\n\n\n"
+                f"   {Emoji.MARKER} /stat - открыть информацию об активности пользователя\n\n\n"
                 f"<b>Игра</b> {Emoji.GAME}\n"
                 f"1. Кнопки {Emoji.BUTTON}\n"
                 f"   {Emoji.MARKER} Выйти из игры - принудительно закончить игру\n"
@@ -30,7 +30,6 @@ MESSAGE = {
                 f"2. Команды {Emoji.COMMAND}\n"
                 f"   {Emoji.MARKER} /start - перезапустить бота\n"
                 f"   {Emoji.MARKER} /menu - показать меню внизу экрана\n"
-                f"   {Emoji.MARKER} /test - test\n\n"
             )
         },
         'reply': {

@@ -24,3 +24,7 @@ async def cmd_start(message: types.Message, state: FSMContext, bot: Bot):
 @router.message(Command('help'), StateFilter(UserStates.menu))
 async def cmd_help(message: types.Message):
     await message.answer(MESSAGE['menu']['command']['help'], parse_mode='HTML')
+
+@router.message(Command('stat'), StateFilter(UserStates.menu))
+async def cmd_stat(message: types.Message):
+    await message.answer('Тут пока ничего нет...')
