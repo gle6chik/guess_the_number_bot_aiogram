@@ -7,6 +7,7 @@ from ..keyboards.reply import get_start_menu
 from states import UserStates
 from commands.manager import CommandManager
 from text.text import MESSAGE
+from database.database import UserDB
 
 router = Router()
 
@@ -28,3 +29,15 @@ async def cmd_help(message: types.Message):
 @router.message(Command('stat'), StateFilter(UserStates.menu))
 async def cmd_stat(message: types.Message):
     await message.answer('Тут пока ничего нет...')
+    info = message.from_user
+
+    print(
+        f"user_id: {info.id}\n" # type: ignore
+        f"username: {info.username}\n" # type: ignore
+        f"first_name: {info.first_name}\n" # type: ignore
+        f"last_name: {info.last_name}\n" # type: ignore
+    )
+
+    db = UserDB()
+    db.write(info.id, info.username, info.first_name, info.last_name) # type: ignore
+    db.close()
