@@ -25,12 +25,12 @@ async def medium_handler(callback: types.CallbackQuery, state: FSMContext, bot: 
     await play(callback.message, 'medium', user_id=callback.from_user.id) # type: ignore
     await callback.answer()
 
-@router.callback_query(F.data == 'start_difficult')
+@router.callback_query(F.data == 'start_hard')
 async def difficult_handler(callback: types.CallbackQuery, state: FSMContext, bot: Bot):
     await callback.message.delete() # type: ignore
     await state.set_state(UserStates.game)
     await CommandManager.set_commands_for_state(bot, callback.from_user.id, UserStates.game)
-    await play(callback.message, 'difficult', user_id=callback.from_user.id) # type: ignore
+    await play(callback.message, 'hard', user_id=callback.from_user.id) # type: ignore
     await callback.answer()
 
 @router.callback_query(F.data == 'back', StateFilter(UserStates.menu))

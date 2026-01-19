@@ -8,6 +8,7 @@ from states import UserStates
 from commands.manager import CommandManager
 from text.text import MESSAGE
 from database.database import UserDB
+from text.emoji import Emoji
 
 router = Router()
 
@@ -28,16 +29,17 @@ async def cmd_help(message: types.Message):
 
 @router.message(Command('stat'), StateFilter(UserStates.menu))
 async def cmd_stat(message: types.Message):
-    await message.answer('Тут пока ничего нет...')
     info = message.from_user
-
-    print(
-        f"user_id: {info.id}\n" # type: ignore
-        f"username: {info.username}\n" # type: ignore
-        f"first_name: {info.first_name}\n" # type: ignore
-        f"last_name: {info.last_name}\n" # type: ignore
-    )
-
     db = UserDB()
-    db.write(info.id, info.username, info.first_name, info.last_name) # type: ignore
+    easy_best_result, medium_best_result, hard_best_result, easy_games_played, medium_games_played, hard_games_played, total_games_played = db.read_statistic(info.id) # type: ignore
     db.close()
+
+    await message.answer(f"<b>{Emoji.STATISTIC} Твоя статистика</b>\n\n"
+                         f"{Emoji.MARKER} Сыграно игр в режиме <i>Легко</i>: {easy_games_played}\n"
+                         f"{Emoji.MARKER} Сыграно игр в режиме <i>Средне</i>: {medium_games_played}\n"
+                         f"{Emoji.MARKER} Сыграно игр в режиме <i>Сложно</i>: {hard_games_played}\n\n"
+                         f"{Emoji.MARKER} Рекорд в режиме <i>Легко</i>: {easy_best_result}\n"
+                         f"{Emoji.MARKER} Рекорд в режиме <i>Средне</i>: {medium_best_result}\n"
+                         f"{Emoji.MARKER} Рекорд в режиме <i>Сложно</i>: {hard_best_result}\n\n"
+                         f"{Emoji.MARKER} Всего сыграно игр: {total_games_played}", parse_mode='HTML')
+    

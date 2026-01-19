@@ -1,9 +1,9 @@
 from aiogram import types
 import random
-import time
 from .keyboards.reply import get_during_game_menu
 from .difficulties import get_description, get_attempts, get_range
 from text.text import MESSAGE
+from database.database import UserDB
 
 user_games = {}
 
@@ -13,12 +13,22 @@ def game(user_id: int, number: int):
 
     if number == game_data['secret_number']:
         del user_games[user_id]
+
+        db = UserDB()
+        db.write_statistic(game_data['difficulty'], user_id, game_data['current_attempt'])
+        db.close()
+
         return MESSAGE['game']['logic']['win'](game_data['current_attempt'],
                                                game_data['attempts'],
                                                game_data['secret_number']), 2
 
     if game_data['current_attempt'] >= game_data['attempts']:
         del user_games[user_id]
+
+        db = UserDB()
+        db.write_statistic(game_data['difficulty'], user_id, 0)
+        db.close()
+
         return MESSAGE['game']['logic']['lose'](game_data['secret_number']), 1
     
     if number < 1 or number > game_data['range']:
@@ -41,7 +51,8 @@ async def start_game(message: types.Message, difficulty: str, user_id: int):
         'current_attempt': 0,
         'attempts': attempts,
         'secret_number': secret_number,
-        'range': range_num
+        'range': range_num,
+        'difficulty': difficulty
     }
 
     await message.answer(MESSAGE['game']['logic']['start_game'](get_description(difficulty),

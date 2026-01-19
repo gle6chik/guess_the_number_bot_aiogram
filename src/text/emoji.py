@@ -20,3 +20,4 @@ class Emoji:
     LIKE = emoji.emojize(':thumbs_up:') # Палец вверх
     HUNDRED = emoji.emojize(':hundred_points:') # Подчёркнутое красное число 100
     LIGHTNING = emoji.emojize(':high_voltage:') # Молния
+    STATISTIC = emoji.emojize(':bar_chart:') # Диаграмма

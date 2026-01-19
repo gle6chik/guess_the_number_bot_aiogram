@@ -9,7 +9,7 @@ DIFFICULTIES = {
         'attempts': 7,
         'range': 100
     },
-    'difficult': {
+    'hard': {
         'description': 'сложный',
         'attempts': 10,
         'range': 1000

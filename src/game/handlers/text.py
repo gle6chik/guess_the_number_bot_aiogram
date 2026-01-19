@@ -20,11 +20,11 @@ async def text_handler(message: types.Message, state: FSMContext, bot: Bot):
         response, end_code = logic.game(user_id, number) # type: ignore
         await message.answer(response) # type: ignore
 
-        if end_code == 2:
+        if end_code == 2: # win
             await message.react([types.ReactionTypeEmoji(emoji=Emoji.PARTY_POPPER)])
             time.sleep(1)
             await game_over(message, state, bot)
-        elif end_code == 1:
+        elif end_code == 1: # lose
             await game_over(message, state, bot)
     else:
         await message.answer(MESSAGE['game']['text']['text_only'])
