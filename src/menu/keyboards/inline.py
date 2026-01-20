@@ -11,3 +11,8 @@ def get_choice_of_difficulty():
     builder.adjust(2, 2) # Расположение кнопок в таблице 2 на 2
 
     return builder.as_markup()
+
+def get_cleaning_of_statistics():
+    builder = InlineKeyboardBuilder()
+    builder.button(text='Сбросить статистику', callback_data='clean_statistics')
+    return builder.as_markup()

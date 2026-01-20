@@ -72,6 +72,11 @@ WHERE user_id = %s
         else:
             return (0, 0, 0, 0, 0, 0, 0)
     
+    # Clean statistics
+    def delete_statistics(self, user_id: int):
+        self.cur.execute("DELETE FROM user_statistics WHERE user_id = %s", (user_id,))
+        self.conn.commit()
+
     # Close connection
     def close(self):
         self.cur.close()

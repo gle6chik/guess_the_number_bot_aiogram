@@ -4,6 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import StateFilter
 from aiogram import Bot
 from ..keyboards.reply import get_start_menu
+from ..keyboards.inline import get_cleaning_of_statistics
 from states import UserStates
 from commands.manager import CommandManager
 from text.text import MESSAGE
@@ -41,5 +42,5 @@ async def cmd_stat(message: types.Message):
                          f"{Emoji.MARKER} Рекорд в режиме <i>Легко</i>: {easy_best_result}\n"
                          f"{Emoji.MARKER} Рекорд в режиме <i>Средне</i>: {medium_best_result}\n"
                          f"{Emoji.MARKER} Рекорд в режиме <i>Сложно</i>: {hard_best_result}\n\n"
-                         f"{Emoji.MARKER} Всего сыграно игр: {total_games_played}", parse_mode='HTML')
+                         f"{Emoji.MARKER} Всего сыграно игр: {total_games_played}", parse_mode='HTML', reply_markup=get_cleaning_of_statistics())
     

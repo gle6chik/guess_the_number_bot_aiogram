@@ -6,6 +6,7 @@ from game.logic import start_game as play
 from states import UserStates
 from commands.manager import CommandManager
 from text.text import MESSAGE
+from database.database import UserDB
 
 router = Router()
 
@@ -36,4 +37,11 @@ async def difficult_handler(callback: types.CallbackQuery, state: FSMContext, bo
 @router.callback_query(F.data == 'back', StateFilter(UserStates.menu))
 async def back_handler(callback: types.CallbackQuery):
     await callback.message.edit_text(MESSAGE['menu']['callback']['back']) # type: ignore
+    await callback.answer()
+
+@router.callback_query(F.data == 'clean_statistics', StateFilter(UserStates.menu))
+async def clean_statistics_handler(callback: types.CallbackQuery):
+    db = UserDB()
+    db.delete_statistics(callback.from_user.id)
+    await callback.message.edit_text('Статистика сброшена') # type: ignore
     await callback.answer()

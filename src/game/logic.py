@@ -32,6 +32,7 @@ def game(user_id: int, number: int):
         return MESSAGE['game']['logic']['lose'](game_data['secret_number']), 1
     
     if number < 1 or number > game_data['range']:
+        game_data['current_attempt'] -= 1
         return MESSAGE['game']['logic']['out_range'], 0
     
     elif number < game_data['secret_number']:
