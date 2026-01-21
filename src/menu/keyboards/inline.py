@@ -17,6 +17,14 @@ def get_cleaning_of_statistics():
     builder.button(text='Сбросить статистику', callback_data='clean_statistics')
     return builder.as_markup()
 
+def get_statistics_cleaning_confirmation():
+    builder = InlineKeyboardBuilder()
+    
+    builder.button(text='Отмена', callback_data='clean_confirm_no')
+    builder.button(text='Да', callback_data='clean_confirm_yes')
+
+    return builder.as_markup()
+
 def get_rating_information():
     builder = InlineKeyboardBuilder()
     builder.button(text='Справка', callback_data='about_rating')

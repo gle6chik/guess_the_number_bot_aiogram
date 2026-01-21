@@ -6,12 +6,14 @@ from game.logic import start_game as play
 from states import UserStates
 from commands.manager import CommandManager
 from text.text import MESSAGE
-from database.database import UserDB, activity_checkpoint
+from database.database import UserDB
+from ..keyboards.inline import get_statistics_cleaning_confirmation, get_cleaning_of_statistics
+from text.emoji import Emoji
 
 router = Router()
 
 @router.callback_query(F.data == 'start_easy', StateFilter(UserStates.menu))
-async def easy_handler(callback: types.CallbackQuery, state: FSMContext, bot: Bot):
+async def start_easy_handler(callback: types.CallbackQuery, state: FSMContext, bot: Bot):
     await callback.message.delete() # type: ignore
     await state.set_state(UserStates.game)
     await CommandManager.set_commands_for_state(bot, callback.from_user.id, UserStates.game)
@@ -19,7 +21,7 @@ async def easy_handler(callback: types.CallbackQuery, state: FSMContext, bot: Bo
     await callback.answer()
 
 @router.callback_query(F.data == 'start_medium', StateFilter(UserStates.menu))
-async def medium_handler(callback: types.CallbackQuery, state: FSMContext, bot: Bot):
+async def start_medium_handler(callback: types.CallbackQuery, state: FSMContext, bot: Bot):
     await callback.message.delete() # type: ignore
     await state.set_state(UserStates.game)
     await CommandManager.set_commands_for_state(bot, callback.from_user.id, UserStates.game)
@@ -27,7 +29,7 @@ async def medium_handler(callback: types.CallbackQuery, state: FSMContext, bot: 
     await callback.answer()
 
 @router.callback_query(F.data == 'start_hard')
-async def difficult_handler(callback: types.CallbackQuery, state: FSMContext, bot: Bot):
+async def start_hard_handler(callback: types.CallbackQuery, state: FSMContext, bot: Bot):
     await callback.message.delete() # type: ignore
     await state.set_state(UserStates.game)
     await CommandManager.set_commands_for_state(bot, callback.from_user.id, UserStates.game)
@@ -41,9 +43,47 @@ async def back_handler(callback: types.CallbackQuery):
 
 @router.callback_query(F.data == 'clean_statistics', StateFilter(UserStates.menu))
 async def clean_statistics_handler(callback: types.CallbackQuery):
+    await callback.message.edit_text('Ты уверен, что хочешь сбросить свою статистику?\n' # type: ignore
+                                     'Это действие необратимо, оно удалит тебя из общего рейтинга.\n'
+                                     'Удалить статистику?',
+                                     reply_markup=get_statistics_cleaning_confirmation())
+    await callback.answer()
+
+@router.callback_query(F.data == 'clean_confirm_yes', StateFilter(UserStates.menu))
+async def clean_confirm_yes_handler(callback: types.CallbackQuery):
     db = UserDB()
     db.delete_statistics(callback.from_user.id)
+    db.close()
     await callback.message.edit_text('Статистика сброшена') # type: ignore
+    await callback.answer()
+
+@router.callback_query(F.data == 'clean_confirm_no', StateFilter(UserStates.menu))
+async def clean_confirm_no_handler(callback: types.CallbackQuery):
+    info = callback.from_user
+    db = UserDB()
+    (easy_best_result,
+    medium_best_result,
+    hard_best_result,
+    easy_games_played,
+    medium_games_played,
+    hard_games_played,
+    total_games_played,
+    winning_percentage,
+    losing_percentage) = db.read_statistic(info.id) # type: ignore
+    db.close()
+
+    await callback.message.edit_text(f"<b>{Emoji.STATISTIC} Твоя статистика</b>\n\n" # type: ignore
+                         f"{Emoji.MARKER} Сыграно игр в режиме <i>Легко</i>: {easy_games_played}\n"
+                         f"{Emoji.MARKER} Сыграно игр в режиме <i>Средне</i>: {medium_games_played}\n"
+                         f"{Emoji.MARKER} Сыграно игр в режиме <i>Сложно</i>: {hard_games_played}\n\n"
+                         f"{Emoji.MARKER} Рекорд в режиме <i>Легко</i>: {easy_best_result}\n"
+                         f"{Emoji.MARKER} Рекорд в режиме <i>Средне</i>: {medium_best_result}\n"
+                         f"{Emoji.MARKER} Рекорд в режиме <i>Сложно</i>: {hard_best_result}\n\n"
+                         f"{Emoji.MARKER} Всего сыграно игр: {total_games_played}\n\n"
+                         f"{Emoji.MARKER} Процент выигрышей: {winning_percentage}%\n"
+                         f"{Emoji.MARKER} Процент проигрышей: {losing_percentage}%",
+                         parse_mode='HTML', reply_markup=get_cleaning_of_statistics())
+
     await callback.answer()
 
 @router.callback_query(F.data == 'about_rating', StateFilter(UserStates.menu))
