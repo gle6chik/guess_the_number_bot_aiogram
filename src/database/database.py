@@ -98,11 +98,11 @@ WHEN u.username IS NOT NULL
 THEN CONCAT('@', u.username)
 ELSE u.first_name
 END as name,
-us.total_games_played
+us.games_won
 FROM users u
 LEFT JOIN user_statistics us ON u.user_id = us.user_id
-WHERE us.total_games_played > 0
-ORDER BY total_games_played DESC
+WHERE us.games_won > 0
+ORDER BY games_won DESC
 LIMIT 10;
 """)
         

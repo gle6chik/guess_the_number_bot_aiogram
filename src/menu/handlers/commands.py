@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import StateFilter
 from aiogram import Bot
 from ..keyboards.reply import get_start_menu
-from ..keyboards.inline import get_cleaning_of_statistics
+from ..keyboards.inline import get_cleaning_of_statistics, get_rating_information
 from states import UserStates
 from commands.manager import CommandManager
 from text.text import MESSAGE
@@ -62,12 +62,12 @@ async def cmd_top(message: types.Message):
     db.close()
 
     if not data:
-        await message.answer('Пока никто не сыграл ни одной игры!')
+        await message.answer(f"{Emoji.EXCLAMATION_MARK} Рейтинг не может быть составлен, так как никто из пользователей ни разу не угадал число.")
         return
 
     lines = ['ТОП 10 ИГРОКОВ:\n']
-    for i, (name, games_played) in enumerate(data, start=1):
-        lines.append(f"{i}. {name}: {games_played} игр")
+    for i, (name, games_won) in enumerate(data, start=1):
+        lines.append(f"{i}. {name}: {games_won}")
     rating = '\n'.join(lines)
         
-    await message.answer(rating)
+    await message.answer(rating, reply_markup=get_rating_information())

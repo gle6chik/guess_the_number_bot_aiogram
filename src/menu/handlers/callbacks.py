@@ -45,3 +45,8 @@ async def clean_statistics_handler(callback: types.CallbackQuery):
     db.delete_statistics(callback.from_user.id)
     await callback.message.edit_text('Статистика сброшена') # type: ignore
     await callback.answer()
+
+@router.callback_query(F.data == 'about_rating', StateFilter(UserStates.menu))
+async def about_rating_handler(callback: types.CallbackQuery):
+    await callback.answer('Этот рейтинг отображает 10 лучших игроков в "Угадай число", которые выиграли больше всего игр.\n\n'
+                          'Выигрывай больше, чтобы попасть на первое место!', show_alert=True)
