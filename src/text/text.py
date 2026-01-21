@@ -3,17 +3,18 @@ from .emoji import Emoji
 # Menu
 # Commands
 MENU_CMD_START = (f"""
-Привет! {Emoji.GREET} Это игра <b>"Угадай число"</b>
+Привет! {Emoji.GREET}
+Это игра <b>"Угадай число"</b>
 Готов проверить свою интуицию? {Emoji.WINK}
 """)
 MENU_CMD_HELP = (f"""
-<b>Навигация по боту</b> {Emoji.COMPASS}
+{Emoji.COMPASS} <b>Навигация по боту</b>
 
 
 Ты можешь воспользоваться кнопками и командами
 
 
-<b>Меню</b> {Emoji.MENU}
+{Emoji.MENU} <b>Меню</b>
 1. Кнопки {Emoji.BUTTON}
    {Emoji.MARKER} Правила игры - описание правил игры
    {Emoji.MARKER} О боте - техническая информация о боте (для разработчиков)
@@ -25,7 +26,7 @@ MENU_CMD_HELP = (f"""
    {Emoji.MARKER} /top - открыть рейтинг игроков
 
 
-<b>Игра</b> {Emoji.GAME}
+{Emoji.GAME} <b>Игра</b>
 1. Кнопки {Emoji.BUTTON}
    {Emoji.MARKER} Выйти из игры - принудительно закончить игру
    {Emoji.MARKER} Скрыть меню - убрать меню снизу
@@ -46,46 +47,51 @@ MENU_CMD_STAT = (
     losing_percentage:
     (f"""
 <b>{Emoji.STATISTIC} Твоя статистика</b>
+
 {Emoji.MARKER} Сыграно игр в режиме <i>Легко</i>: {easy_games_played}
 {Emoji.MARKER} Сыграно игр в режиме <i>Средне</i>: {medium_games_played}
 {Emoji.MARKER} Сыграно игр в режиме <i>Сложно</i>: {hard_games_played}
+
 {Emoji.MARKER} Рекорд в режиме <i>Легко</i>: {easy_best_result}
 {Emoji.MARKER} Рекорд в режиме <i>Средне</i>: {medium_best_result}
 {Emoji.MARKER} Рекорд в режиме <i>Сложно</i>: {hard_best_result}
+
 {Emoji.MARKER} Всего сыграно игр: {total_games_played}
+
 {Emoji.MARKER} Процент выигрышей: {winning_percentage}%
 {Emoji.MARKER} Процент проигрышей: {losing_percentage}%
 """)
 )
 MENU_CMD_RATINGNOTEXISTS = f"{Emoji.EXCLAMATION_MARK} Рейтинг не может быть составлен, так как никто из пользователей ни разу не угадал число."
-MENU_CMD_TOPTITLE = 'ТОП 10 ИГРОКОВ:\n'
+MENU_CMD_TOPTITLE = f"{Emoji.TROPHY} ТОП 10 ИГРОКОВ:\n"
 
 # Callbacks
 MENU_CLB_BACK = 'Нажми "Новая игра", чтобы сыграть!'
-MENU_CLB_CONFIRMSTATCLEAN = ("""
-Ты уверен, что хочешь сбросить свою статистику?
-Это действие необратимо, оно удалит тебя из общего рейтинга.
+MENU_CLB_CONFIRMSTATCLEAN = (f"""
+{Emoji.EXCLAMATION_MARK} ВНИМАНИЕ {Emoji.EXCLAMATION_MARK}
 
-Удалить статистику?'
+Ты уверен, что хочешь сбросить свою статистику? Это действие необратимо, оно удалит тебя из общего рейтинга.
+
+Удалить статистику?
 """)
 MENU_CLB_CONFIRMSTATCLEANYES = 'Статистика сброшена.'
 MENU_CLB_CONFIRMSTATCLEANNO = MENU_CMD_STAT
-MENU_CLB_ABOUTRATING = ("""
-Этот рейтинг отображает 10 лучших игроков в "Угадай число", которые выигрывали больше остальных.
+MENU_CLB_ABOUTRATING = (f"""
+Этот рейтинг отображает 10 лучших игроков в "Угадай число", у которых больше всего выигрышей {Emoji.TROPHY}
 
-Выигрывай больше, чтобы попасть в десятку лучших!
+Выигрывай больше, чтобы попасть в десятку лучших! {Emoji.WINK}
 """)
 
 # Reply
 MENU_RPL_NEWGAME = f"Выбери сложность игры {Emoji.HAND_DOWN}"
 MENU_RPL_RULES = (f"""
-<b>Правила игры</b> {Emoji.BOOK}
+{Emoji.BOOK} <b>Правила игры</b>
 
 
 В зависимости от выбранной сложности (<i>легко, средне, сложно</i>),
 <b>я загадаю число</b> в определенном диапазоне {Emoji.NUMBERS}
 
-<b>Твоя задача - отгадать</b> это число за ограниченное количество попыток {Emoji.QUESTION_MARK}
+{Emoji.QUESTION_MARK} <b>Твоя задача - отгадать</b> это число за ограниченное количество попыток
 Желаю удачи! {Emoji.COOL_FACE}
 """)
 MENU_RPL_ABOUT = '<a href="https://github.com/gle6chik/guess_the_number_bot_aiogram">Ссылка на репозиторий GitHub</a>'
@@ -96,11 +102,11 @@ MENU_TXT_TEXT = 'Чтобы сыграть, нажми "Новая игра"\nЧ
 
 # Game
 # Commands
-GAME_CMD_CHANGEMENU = 'Меню открыто\nПродолжаем игру'
+GAME_CMD_CHANGEMENU = 'Меню открыто.\nПродолжаем игру.'
 
 # Reply
-GAME_RPL_ENDGAME = 'Игра окончена'
-GAME_RPL_HIDEMENU = 'Меню скрыто\nПродолжаем игру'
+GAME_RPL_ENDGAME = 'Игра окончена.'
+GAME_RPL_HIDEMENU = 'Меню скрыто.\nПродолжаем игру.'
 
 # Text
 GAME_TXT_TEXTONLY = f"{Emoji.EXCLAMATION_MARK} Здесь нужно писать только числа"
@@ -108,11 +114,11 @@ GAME_TXT_TEXTONLY = f"{Emoji.EXCLAMATION_MARK} Здесь нужно писат�
 # Logic
 GAME_LOG_WIN = (
     lambda current_attempt, attempts, secret_num:
-    f"Победа! На {current_attempt} попытке из {attempts}! Ты молодец! {Emoji.LIKE}\nЗагаданное число - {secret_num}"
+    f"Победа!\nПопытка: {current_attempt} / {attempts}\nТы молодец! {Emoji.LIKE}\nЗагаданное число: {secret_num}"
 )
 GAME_LOG_LOSE = (
     lambda secret_num:
-    f"Количество попыток закончилось... {Emoji.SAD_FACE}\nЗагаданное число - {secret_num}\nНе переживай, в следующий раз повезёт! {Emoji.HUNDRED}"
+    f"{Emoji.SAD_FACE} Количество попыток закончилось...\nЗагаданное число - {secret_num}\nНе переживай, в следующий раз повезёт! {Emoji.HUNDRED}"
 )
 GAME_LOG_MORE = (
     lambda number, attempts_left:
@@ -131,5 +137,5 @@ GAME_LOG_STARTGAME = (
 Попробуй угадать! {Emoji.WINK}
 """)
 )
-GAME_LOG_OUTRANGE = f"{Emoji.EXCLAMATION_MARK} Это число вне диапазона! Попробуй другое"
-GAME_LOG_ENTERNUMBER = 'Введи какое-нибудь число'
+GAME_LOG_OUTRANGE = f"{Emoji.EXCLAMATION_MARK} Это число вне диапазона! Попробуй другое."
+GAME_LOG_ENTERNUMBER = 'Введи какое-нибудь число.'

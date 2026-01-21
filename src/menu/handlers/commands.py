@@ -75,7 +75,12 @@ async def cmd_top(message: types.Message):
 
     lines = [text.MENU_CMD_TOPTITLE]
     for i, (name, games_won) in enumerate(data, start=1):
-        lines.append(f"{i}. {name}: {games_won}")
+        index = None
+        if i == 1: index = Emoji.FIRST_PLACE_MEDAL
+        elif i == 2: index = Emoji.SECOND_PLACE_MEDAL
+        elif i == 3: index = Emoji.THIRD_PLACE_MEDAL
+        else: index = str(i)+'.'
+        lines.append(f"{index} {name}: {games_won}")
     rating = '\n'.join(lines)
         
     await message.answer(rating, reply_markup=get_rating_information())
