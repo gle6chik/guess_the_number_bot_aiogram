@@ -2,7 +2,7 @@ from aiogram import types
 import random
 from .keyboards.reply import get_during_game_menu
 from .difficulties import get_description, get_attempts, get_range
-from text.text import MESSAGE
+from text import text
 from database.database import UserDB
 
 user_games = {}
@@ -18,7 +18,7 @@ def game(user_id: int, number: int):
         db.write_statistic(game_data['difficulty'], user_id, game_data['current_attempt'], True)
         db.close()
 
-        return MESSAGE['game']['logic']['win'](game_data['current_attempt'],
+        return text.GAME_LOG_WIN(game_data['current_attempt'],
                                                game_data['attempts'],
                                                game_data['secret_number']), 2
 
@@ -29,19 +29,19 @@ def game(user_id: int, number: int):
         db.write_statistic(game_data['difficulty'], user_id, 0, False)
         db.close()
 
-        return MESSAGE['game']['logic']['lose'](game_data['secret_number']), 1
+        return text.GAME_LOG_LOSE(game_data['secret_number']), 1
     
     if number < 1 or number > game_data['range']:
         game_data['current_attempt'] -= 1
-        return MESSAGE['game']['logic']['out_range'], 0
+        return text.GAME_LOG_OUTRANGE, 0
     
     elif number < game_data['secret_number']:
         attempts_left = game_data['attempts'] - game_data['current_attempt']
-        return MESSAGE['game']['logic']['more'](number, attempts_left), 0
+        return text.GAME_LOG_MORE(number, attempts_left), 0
     elif number > game_data['secret_number']:
         attempts_left = game_data['attempts'] - game_data['current_attempt']
 
-        return MESSAGE['game']['logic']['less'](number, attempts_left), 0
+        return text.GAME_LOG_LESS(number, attempts_left), 0
 
 async def start_game(message: types.Message, difficulty: str, user_id: int):
     attempts = get_attempts(difficulty=difficulty)
@@ -56,11 +56,12 @@ async def start_game(message: types.Message, difficulty: str, user_id: int):
         'difficulty': difficulty
     }
 
-    await message.answer(MESSAGE['game']['logic']['start_game'](get_description(difficulty),
-                                                                attempts,
-                                                                range_num), 
-                                                                parse_mode='HTML',
-                                                                reply_markup=get_during_game_menu())
+    await message.answer(text.GAME_LOG_STARTGAME(
+        get_description(difficulty),
+        attempts,
+        range_num),
+        parse_mode='HTML',
+        reply_markup=get_during_game_menu())
     
-    await message.answer('Введи какое-нибудь число')
+    await message.answer(text.GAME_LOG_ENTERNUMBER)
     

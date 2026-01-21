@@ -7,7 +7,7 @@ from ..keyboards.reply import get_start_menu
 from ..keyboards.inline import get_cleaning_of_statistics, get_rating_information
 from states import UserStates
 from commands.manager import CommandManager
-from text.text import MESSAGE
+from text import text
 from database.database import UserDB, activity_checkpoint
 from text.emoji import Emoji
 
@@ -21,14 +21,14 @@ async def cmd_start(message: types.Message, state: FSMContext, bot: Bot):
 
     GREET_STICKER_ID = 'CAACAgIAAxkBAAMDaVS6X1rRba6dWlSRsQLWwo3fuasAAj5PAAIXwFFJKUtKhmRzC3A4BA'
     await message.answer_sticker(GREET_STICKER_ID)
-    await message.answer(MESSAGE['menu']['command']['start'],
+    await message.answer(text.MENU_CMD_START,
                          parse_mode='HTML',
                          reply_markup=get_start_menu())
 
 @router.message(Command('help'), StateFilter(UserStates.menu))
 async def cmd_help(message: types.Message):
     activity_checkpoint(message)
-    await message.answer(MESSAGE['menu']['command']['help'], parse_mode='HTML')
+    await message.answer(text.MENU_CMD_HELP, parse_mode='HTML')
 
 @router.message(Command('stat'), StateFilter(UserStates.menu))
 async def cmd_stat(message: types.Message):
@@ -47,17 +47,19 @@ async def cmd_stat(message: types.Message):
     losing_percentage) = db.read_statistic(info.id) # type: ignore
     db.close()
 
-    await message.answer(f"<b>{Emoji.STATISTIC} Твоя статистика</b>\n\n"
-                         f"{Emoji.MARKER} Сыграно игр в режиме <i>Легко</i>: {easy_games_played}\n"
-                         f"{Emoji.MARKER} Сыграно игр в режиме <i>Средне</i>: {medium_games_played}\n"
-                         f"{Emoji.MARKER} Сыграно игр в режиме <i>Сложно</i>: {hard_games_played}\n\n"
-                         f"{Emoji.MARKER} Рекорд в режиме <i>Легко</i>: {easy_best_result}\n"
-                         f"{Emoji.MARKER} Рекорд в режиме <i>Средне</i>: {medium_best_result}\n"
-                         f"{Emoji.MARKER} Рекорд в режиме <i>Сложно</i>: {hard_best_result}\n\n"
-                         f"{Emoji.MARKER} Всего сыграно игр: {total_games_played}\n\n"
-                         f"{Emoji.MARKER} Процент выигрышей: {winning_percentage}%\n"
-                         f"{Emoji.MARKER} Процент проигрышей: {losing_percentage}%",
-                         parse_mode='HTML', reply_markup=get_cleaning_of_statistics())
+    await message.answer(
+        text.MENU_CMD_STAT(
+            easy_best_result,
+            medium_best_result,
+            hard_best_result,
+            easy_games_played,
+            medium_games_played,
+            hard_games_played,
+            total_games_played,
+            winning_percentage,
+            losing_percentage),
+            parse_mode='HTML',
+            reply_markup=get_cleaning_of_statistics())
     
 @router.message(Command('top'), StateFilter(UserStates.menu))
 async def cmd_top(message: types.Message):
@@ -68,10 +70,10 @@ async def cmd_top(message: types.Message):
     db.close()
 
     if not data:
-        await message.answer(f"{Emoji.EXCLAMATION_MARK} Рейтинг не может быть составлен, так как никто из пользователей ни разу не угадал число.")
+        await message.answer(text.MENU_CMD_RATINGNOTEXISTS)
         return
 
-    lines = ['ТОП 10 ИГРОКОВ:\n']
+    lines = [text.MENU_CMD_TOPTITLE]
     for i, (name, games_won) in enumerate(data, start=1):
         lines.append(f"{i}. {name}: {games_won}")
     rating = '\n'.join(lines)
