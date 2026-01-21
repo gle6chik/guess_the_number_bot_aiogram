@@ -15,7 +15,7 @@ def game(user_id: int, number: int):
         del user_games[user_id]
 
         db = UserDB()
-        db.write_statistic(game_data['difficulty'], user_id, game_data['current_attempt'])
+        db.write_statistic(game_data['difficulty'], user_id, game_data['current_attempt'], True)
         db.close()
 
         return MESSAGE['game']['logic']['win'](game_data['current_attempt'],
@@ -26,7 +26,7 @@ def game(user_id: int, number: int):
         del user_games[user_id]
 
         db = UserDB()
-        db.write_statistic(game_data['difficulty'], user_id, 0)
+        db.write_statistic(game_data['difficulty'], user_id, 0, False)
         db.close()
 
         return MESSAGE['game']['logic']['lose'](game_data['secret_number']), 1

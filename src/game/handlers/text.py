@@ -7,6 +7,7 @@ from game import logic
 from ..handlers.reply import leave_game_handler as game_over
 from text.text import MESSAGE
 from text.emoji import Emoji
+from database.database import UserDB
 
 router = Router()
 

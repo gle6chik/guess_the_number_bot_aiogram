@@ -38,7 +38,9 @@ async def cmd_stat(message: types.Message):
     easy_games_played,
     medium_games_played,
     hard_games_played,
-    total_games_played) = db.read_statistic(info.id) # type: ignore
+    total_games_played,
+    winning_percentage,
+    losing_percentage) = db.read_statistic(info.id) # type: ignore
     db.close()
 
     await message.answer(f"<b>{Emoji.STATISTIC} Твоя статистика</b>\n\n"
@@ -48,7 +50,9 @@ async def cmd_stat(message: types.Message):
                          f"{Emoji.MARKER} Рекорд в режиме <i>Легко</i>: {easy_best_result}\n"
                          f"{Emoji.MARKER} Рекорд в режиме <i>Средне</i>: {medium_best_result}\n"
                          f"{Emoji.MARKER} Рекорд в режиме <i>Сложно</i>: {hard_best_result}\n\n"
-                         f"{Emoji.MARKER} Всего сыграно игр: {total_games_played}",
+                         f"{Emoji.MARKER} Всего сыграно игр: {total_games_played}\n\n"
+                         f"{Emoji.MARKER} Процент выигрышей: {winning_percentage}%\n"
+                         f"{Emoji.MARKER} Процент проигрышей: {losing_percentage}%",
                          parse_mode='HTML', reply_markup=get_cleaning_of_statistics())
     
 @router.message(Command('top'), StateFilter(UserStates.menu))
