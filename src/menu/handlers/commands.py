@@ -32,7 +32,13 @@ async def cmd_help(message: types.Message):
 async def cmd_stat(message: types.Message):
     info = message.from_user
     db = UserDB()
-    easy_best_result, medium_best_result, hard_best_result, easy_games_played, medium_games_played, hard_games_played, total_games_played = db.read_statistic(info.id) # type: ignore
+    (easy_best_result,
+    medium_best_result,
+    hard_best_result,
+    easy_games_played,
+    medium_games_played,
+    hard_games_played,
+    total_games_played) = db.read_statistic(info.id) # type: ignore
     db.close()
 
     await message.answer(f"<b>{Emoji.STATISTIC} Твоя статистика</b>\n\n"
@@ -42,5 +48,22 @@ async def cmd_stat(message: types.Message):
                          f"{Emoji.MARKER} Рекорд в режиме <i>Легко</i>: {easy_best_result}\n"
                          f"{Emoji.MARKER} Рекорд в режиме <i>Средне</i>: {medium_best_result}\n"
                          f"{Emoji.MARKER} Рекорд в режиме <i>Сложно</i>: {hard_best_result}\n\n"
-                         f"{Emoji.MARKER} Всего сыграно игр: {total_games_played}", parse_mode='HTML', reply_markup=get_cleaning_of_statistics())
+                         f"{Emoji.MARKER} Всего сыграно игр: {total_games_played}",
+                         parse_mode='HTML', reply_markup=get_cleaning_of_statistics())
     
+@router.message(Command('top'), StateFilter(UserStates.menu))
+async def cmd_top(message: types.Message):
+    db = UserDB()
+    data = db.read_top_users()
+    db.close()
+
+    if not data:
+        await message.answer('Пока никто не сыграл ни одной игры!')
+        return
+
+    lines = ['ТОП 10 ИГРОКОВ:\n']
+    for i, (name, games_played) in enumerate(data, start=1):
+        lines.append(f"{i}. {name}: {games_played} игр")
+    rating = '\n'.join(lines)
+        
+    await message.answer(rating)

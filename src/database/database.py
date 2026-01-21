@@ -46,7 +46,7 @@ WHEN %s = 0 THEN user_statistics.{best_result}
 WHEN user_statistics.{best_result} = 0 THEN %s
 ELSE LEAST(user_statistics.{best_result}, %s)
 END,
-{games_played} = user_statistics.{games_played} + 1
+{games_played} = user_statistics.{games_played} + 1;
 """, (user_id, attempt_result, attempt_result, attempt_result, attempt_result))
         self.conn.commit()
     
@@ -63,7 +63,7 @@ medium_games_played,
 hard_games_played,
 total_games_played
 FROM user_statistics
-WHERE user_id = %s
+WHERE user_id = %s;
 """, (user_id,))
         
         results = self.cur.fetchone()
@@ -71,6 +71,27 @@ WHERE user_id = %s
             return results[0], results[1], results[2], results[3], results[4], results[5], results[6]
         else:
             return (0, 0, 0, 0, 0, 0, 0)
+    
+    # Read top users
+    def read_top_users(self):
+        self.cur.execute(
+            """
+SELECT
+CASE
+WHEN u.username IS NOT NULL
+THEN CONCAT('@', u.username)
+ELSE u.first_name
+END as name,
+us.total_games_played
+FROM users u
+LEFT JOIN user_statistics us ON u.user_id = us.user_id
+WHERE us.total_games_played > 0
+ORDER BY total_games_played DESC
+LIMIT 10;
+""")
+        
+        results = self.cur.fetchall()
+        return results
     
     # Clean statistics
     def delete_statistics(self, user_id: int):
