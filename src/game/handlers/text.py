@@ -7,12 +7,14 @@ from game import logic
 from ..handlers.reply import leave_game_handler as game_over
 from text.text import MESSAGE
 from text.emoji import Emoji
-from database.database import UserDB
+from database.database import activity_checkpoint
 
 router = Router()
 
 @router.message(F.text, StateFilter(UserStates.game))
 async def text_handler(message: types.Message, state: FSMContext, bot: Bot):
+    activity_checkpoint(message)
+    
     user_id = message.from_user.id # type: ignore
     text = message.text
 

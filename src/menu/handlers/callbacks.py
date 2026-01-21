@@ -6,7 +6,7 @@ from game.logic import start_game as play
 from states import UserStates
 from commands.manager import CommandManager
 from text.text import MESSAGE
-from database.database import UserDB
+from database.database import UserDB, activity_checkpoint
 
 router = Router()
 

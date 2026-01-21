@@ -1,5 +1,12 @@
 import psycopg2
 from config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
+from aiogram import types
+
+def activity_checkpoint(message: types.Message):
+    info = message.from_user
+    db = UserDB()
+    db.write_active(info.id, info.username, info.first_name, info.last_name) # type: ignore
+    db.close()
 
 class UserDB:
     def __init__(self):

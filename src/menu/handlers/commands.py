@@ -8,13 +8,14 @@ from ..keyboards.inline import get_cleaning_of_statistics, get_rating_informatio
 from states import UserStates
 from commands.manager import CommandManager
 from text.text import MESSAGE
-from database.database import UserDB
+from database.database import UserDB, activity_checkpoint
 from text.emoji import Emoji
 
 router = Router()
 
 @router.message(Command('start'))
 async def cmd_start(message: types.Message, state: FSMContext, bot: Bot):
+    activity_checkpoint(message)
     await state.set_state(UserStates.menu)
     await CommandManager.set_commands_for_state(bot, message.from_user.id, UserStates.menu) # type: ignore
 
@@ -26,10 +27,13 @@ async def cmd_start(message: types.Message, state: FSMContext, bot: Bot):
 
 @router.message(Command('help'), StateFilter(UserStates.menu))
 async def cmd_help(message: types.Message):
+    activity_checkpoint(message)
     await message.answer(MESSAGE['menu']['command']['help'], parse_mode='HTML')
 
 @router.message(Command('stat'), StateFilter(UserStates.menu))
 async def cmd_stat(message: types.Message):
+    activity_checkpoint(message)
+
     info = message.from_user
     db = UserDB()
     (easy_best_result,
@@ -57,6 +61,8 @@ async def cmd_stat(message: types.Message):
     
 @router.message(Command('top'), StateFilter(UserStates.menu))
 async def cmd_top(message: types.Message):
+    activity_checkpoint(message)
+
     db = UserDB()
     data = db.read_top_users()
     db.close()
