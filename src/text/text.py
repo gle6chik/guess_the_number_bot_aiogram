@@ -1,81 +1,141 @@
 from .emoji import Emoji
 
-MESSAGE = {
-    'menu': {
-        'callback': {
-            'back': 'Нажми "Новая игра", чтобы сыграть!'
-        },
-        'command': {
-            'start': (
-                f"Привет! {Emoji.GREET} Это игра <b>\"Угадай число\"</b>\n"
-                f"Готов проверить свою интуицию? {Emoji.WINK}"
-            ),
-            'help': (
-                f"<b>Навигация по боту</b> {Emoji.COMPASS}\n\n"
-                'Есть два режима: <b>Меню</b> и <b>Игра</b>\n'
-                'Ты можешь воспользоваться кнопками и командами\n\n'
-                f"<b>Меню</b> {Emoji.MENU}\n"
-                f"1. Кнопки {Emoji.BUTTON}\n"
-                f"   {Emoji.MARKER} Правила игры - описание правил игры\n"
-                f"   {Emoji.MARKER} О боте - техническая информация о боте (для разработчиков)\n"
-                f"   {Emoji.MARKER} Новая игра - начать новую игру\n"
-                f"2. Команды {Emoji.COMMAND}\n"
-                f"   {Emoji.MARKER} /start - перезапустить бота\n"
-                f"   {Emoji.MARKER} /help - открыть информацию о навигации по боту (данная справка)\n"
-                f"   {Emoji.MARKER} /test - test\n\n\n"
-                f"<b>Игра</b> {Emoji.GAME}\n"
-                f"1. Кнопки {Emoji.BUTTON}\n"
-                f"   {Emoji.MARKER} Выйти из игры - принудительно закончить игру\n"
-                f"   {Emoji.MARKER} Скрыть меню - убрать меню снизу\n"
-                f"2. Команды {Emoji.COMMAND}\n"
-                f"   {Emoji.MARKER} /start - перезапустить бота\n"
-                f"   {Emoji.MARKER} /menu - показать меню внизу экрана\n"
-                f"   {Emoji.MARKER} /test - test\n\n"
-            )
-        },
-        'reply': {
-            'new_game': f"Выбери сложность игры {Emoji.HAND_DOWN}",
-            'rules': (
-                f"<b>Правила игры</b> {Emoji.BOOK}\n\n"
-                f"В зависимости от выбранной сложности (<i>легко, средне, сложно</i>), <b>я загадаю число</b> в определенном диапазоне {Emoji.NUMBERS}\n\n"
-                f"<b>Твоя задача - отгадать</b> это число за ограниченное количество попыток {Emoji.QUESTION_MARK}\n\n"
-                f"Желаю удачи! {Emoji.COOL_FACE}"
-            ),
-            'about': '<a href="https://github.com/gle6chik/guess_the_number_bot_aiogram">Ссылка на репозиторий GitHub</a>'
-        },
-        'text': {
-            'text': 'Чтобы сыграть, нажми "Новая игра"\nЧтобы посмотреть все действия, напиши /help'
-        }
-    },
-    'game': {
-        'command': {
-            'change_menu': 'Меню открыто\nПродолжаем игру'
-        },
-        'reply': {
-            'end_game': 'Игра окончена',
-            'hide_menu': 'Меню скрыто\nПродолжаем игру'
-        },
-        'text': {
-            'text_only': f"{Emoji.EXCLAMATION_MARK} Здесь нужно писать только числа"
-        },
-        'logic': {
-            'win': lambda current_attempt, attempts, secret_num: (
-                f"Победа! На {current_attempt} попытке из {attempts}! Ты молодец! {Emoji.LIKE}\nЗагаданное число - {secret_num}"
-            ),
-            'lose': lambda secret_num: (
-                f"Количество попыток закончилось... {Emoji.SAD_FACE}\nЗагаданное число - {secret_num}\nНе переживай, в следующий раз повезёт! {Emoji.HUNDRED}"
-            ),
-            'more': lambda number, attempts_left: (
-                f"Загаданное число БОЛЬШЕ {number}\nПопыток осталось: {attempts_left}"
-            ),
-            'less': lambda number, attempts_left: (
-                f"Загаданное число МЕНЬШЕ {number}\nПопыток осталось: {attempts_left}"
-            ),
-            'start_game': lambda difficulty, attempts, range_num: (
-                f"Режим сложности: {difficulty}\n"
-                f"У тебя есть <b>{attempts} попыток</b>\n"
-                f"Я загадал число в диапазоне <b>от 1 до {range_num}</b>, попробуй угадать! {Emoji.WINK}"
-            )
-        }
-    }
-}
+# Menu
+# Commands
+MENU_CMD_START = (f"""
+Привет! {Emoji.GREET}
+Это игра <b>"Угадай число"</b>
+Готов проверить свою интуицию? {Emoji.WINK}
+""")
+MENU_CMD_HELP = (f"""
+{Emoji.COMPASS} <b>Навигация по боту</b>
+
+
+Ты можешь воспользоваться кнопками и командами
+
+
+{Emoji.MENU} <b>Меню</b>
+1. Кнопки {Emoji.BUTTON}
+   {Emoji.MARKER} Правила игры - описание правил игры
+   {Emoji.MARKER} О боте - техническая информация о боте (для разработчиков)
+   {Emoji.MARKER} Новая игра - начать новую игру
+2. Команды {Emoji.COMMAND}
+   {Emoji.MARKER} /start - перезапустить бота
+   {Emoji.MARKER} /help - открыть информацию о навигации по боту (данная справка)
+   {Emoji.MARKER} /stat - открыть информацию об активности пользователя
+   {Emoji.MARKER} /top - открыть рейтинг игроков
+
+
+{Emoji.GAME} <b>Игра</b>
+1. Кнопки {Emoji.BUTTON}
+   {Emoji.MARKER} Выйти из игры - принудительно закончить игру
+   {Emoji.MARKER} Скрыть меню - убрать меню снизу
+2. Команды {Emoji.COMMAND}
+   {Emoji.MARKER} /start - перезапустить бота
+   {Emoji.MARKER} /menu - показать меню внизу экрана
+""")
+MENU_CMD_STAT = (
+    lambda 
+    easy_best_result,
+    medium_best_result,
+    hard_best_result,
+    easy_games_played,
+    medium_games_played,
+    hard_games_played,
+    total_games_played,
+    winning_percentage,
+    losing_percentage:
+    (f"""
+<b>{Emoji.STATISTIC} Твоя статистика</b>
+
+{Emoji.MARKER} Сыграно игр в режиме <i>Легко</i>: {easy_games_played}
+{Emoji.MARKER} Сыграно игр в режиме <i>Средне</i>: {medium_games_played}
+{Emoji.MARKER} Сыграно игр в режиме <i>Сложно</i>: {hard_games_played}
+
+{Emoji.MARKER} Рекорд в режиме <i>Легко</i>: {easy_best_result}
+{Emoji.MARKER} Рекорд в режиме <i>Средне</i>: {medium_best_result}
+{Emoji.MARKER} Рекорд в режиме <i>Сложно</i>: {hard_best_result}
+
+{Emoji.MARKER} Всего сыграно игр: {total_games_played}
+
+{Emoji.MARKER} Процент выигрышей: {winning_percentage}%
+{Emoji.MARKER} Процент проигрышей: {losing_percentage}%
+""")
+)
+MENU_CMD_RATINGNOTEXISTS = f"{Emoji.EXCLAMATION_MARK} Рейтинг не может быть составлен, так как никто из пользователей ни разу не угадал число."
+MENU_CMD_TOPTITLE = f"{Emoji.TROPHY} ТОП 10 ИГРОКОВ:\n"
+
+# Callbacks
+MENU_CLB_BACK = 'Нажми "Новая игра", чтобы сыграть!'
+MENU_CLB_CONFIRMSTATCLEAN = (f"""
+{Emoji.EXCLAMATION_MARK} ВНИМАНИЕ {Emoji.EXCLAMATION_MARK}
+
+Ты уверен, что хочешь сбросить свою статистику? Это действие необратимо, оно удалит тебя из общего рейтинга.
+
+Удалить статистику?
+""")
+MENU_CLB_CONFIRMSTATCLEANYES = 'Статистика сброшена.'
+MENU_CLB_CONFIRMSTATCLEANNO = MENU_CMD_STAT
+MENU_CLB_ABOUTRATING = (f"""
+Этот рейтинг отображает 10 лучших игроков в "Угадай число", у которых больше всего выигрышей {Emoji.TROPHY}
+
+Выигрывай больше, чтобы попасть в десятку лучших! {Emoji.WINK}
+""")
+
+# Reply
+MENU_RPL_NEWGAME = f"Выбери сложность игры {Emoji.HAND_DOWN}"
+MENU_RPL_RULES = (f"""
+{Emoji.BOOK} <b>Правила игры</b>
+
+
+В зависимости от выбранной сложности (<i>легко, средне, сложно</i>),
+<b>я загадаю число</b> в определенном диапазоне {Emoji.NUMBERS}
+
+{Emoji.QUESTION_MARK} <b>Твоя задача - отгадать</b> это число за ограниченное количество попыток
+Желаю удачи! {Emoji.COOL_FACE}
+""")
+MENU_RPL_ABOUT = '<a href="https://github.com/gle6chik/guess_the_number_bot_aiogram">Ссылка на репозиторий GitHub</a>'
+
+# Text
+MENU_TXT_TEXT = 'Чтобы сыграть, нажми "Новая игра"\nЧтобы посмотреть все действия, напиши /help'
+
+
+# Game
+# Commands
+GAME_CMD_CHANGEMENU = 'Меню открыто.\nПродолжаем игру.'
+
+# Reply
+GAME_RPL_ENDGAME = 'Игра окончена.'
+GAME_RPL_HIDEMENU = 'Меню скрыто.\nПродолжаем игру.'
+
+# Text
+GAME_TXT_TEXTONLY = f"{Emoji.EXCLAMATION_MARK} Здесь нужно писать только числа"
+
+# Logic
+GAME_LOG_WIN = (
+    lambda current_attempt, attempts, secret_num:
+    f"Победа!\nПопытка: {current_attempt} / {attempts}\nТы молодец! {Emoji.LIKE}\nЗагаданное число: {secret_num}"
+)
+GAME_LOG_LOSE = (
+    lambda secret_num:
+    f"{Emoji.SAD_FACE} Количество попыток закончилось...\nЗагаданное число - {secret_num}\nНе переживай, в следующий раз повезёт! {Emoji.HUNDRED}"
+)
+GAME_LOG_MORE = (
+    lambda number, attempts_left:
+    f"Загаданное число БОЛЬШЕ {number}\nПопыток осталось: {attempts_left}"
+)
+GAME_LOG_LESS = (
+    lambda number, attempts_left:
+    f"Загаданное число МЕНЬШЕ {number}\nПопыток осталось: {attempts_left}"
+)
+GAME_LOG_STARTGAME = (
+    lambda difficulty, attempts, range_num: (f"""
+Режим сложности: {difficulty}
+У тебя есть <b>{attempts} попыток</b>
+Я загадал число в диапазоне
+<b>от 1 до {range_num}</b>
+Попробуй угадать! {Emoji.WINK}
+""")
+)
+GAME_LOG_OUTRANGE = f"{Emoji.EXCLAMATION_MARK} Это число вне диапазона! Попробуй другое."
+GAME_LOG_ENTERNUMBER = 'Введи какое-нибудь число.'

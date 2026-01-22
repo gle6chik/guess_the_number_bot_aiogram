@@ -7,12 +7,15 @@ from menu.keyboards.reply import get_start_menu
 from states import UserStates
 from commands.manager import CommandManager
 from game import logic
-from text.text import MESSAGE
+from text import text
+from database.database import activity_checkpoint
 
 router = Router()
 
 @router.message(F.text == 'Выйти из игры', StateFilter(UserStates.game))
 async def leave_game_handler(message: types.Message, state: FSMContext, bot: Bot):
+    activity_checkpoint(message)
+
     await state.set_state(UserStates.menu)
     user_id = message.from_user.id # type: ignore
 
@@ -22,8 +25,9 @@ async def leave_game_handler(message: types.Message, state: FSMContext, bot: Bot
 
     await CommandManager.set_commands_for_state(bot, message.from_user.id, UserStates.menu) # type: ignore
 
-    await message.answer(MESSAGE['game']['reply']['end_game'], reply_markup=get_start_menu())
+    await message.answer(text.GAME_RPL_ENDGAME, reply_markup=get_start_menu())
 
 @router.message(F.text == 'Скрыть меню', StateFilter(UserStates.game))
 async def hide_menu_handler(message: types.Message):
-    await message.answer(MESSAGE['game']['reply']['hide_menu'], reply_markup=ReplyKeyboardRemove())
+    activity_checkpoint(message)
+    await message.answer(text.GAME_RPL_HIDEMENU, reply_markup=ReplyKeyboardRemove())

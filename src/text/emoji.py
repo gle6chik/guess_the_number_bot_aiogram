@@ -20,3 +20,8 @@ class Emoji:
     LIKE = emoji.emojize(':thumbs_up:') # Палец вверх
     HUNDRED = emoji.emojize(':hundred_points:') # Подчёркнутое красное число 100
     LIGHTNING = emoji.emojize(':high_voltage:') # Молния
+    STATISTIC = emoji.emojize(':bar_chart:') # Диаграмма
+    TROPHY = emoji.emojize(':trophy:') # Кубок
+    FIRST_PLACE_MEDAL = emoji.emojize(':1st_place_medal:')
+    SECOND_PLACE_MEDAL = emoji.emojize(':2nd_place_medal:')
+    THIRD_PLACE_MEDAL = emoji.emojize(':3rd_place_medal:')
