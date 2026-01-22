@@ -17,6 +17,8 @@ In each mode, the user can use buttons and commands to control the bot and gamep
 1. Commands
 + `/start` - restart the bot
 + `/help` - show information about bot navigation
++ `/stat` - show information about user activity
++ `/top` - show user rating
 2. Buttons
 + *Новая игра* (New Game) - start a new game
     In this case, an inline keyboard will appear to select the game difficulty:
@@ -58,15 +60,32 @@ pip install -r requirements.txt
 ```
 
 ## Configuration
-1. Get a bot token in [@BotFather](https://t.me/botfather)
-2. Copy the configuration file
+1. Initialize database
+```bash
+# For Linux
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+sudo systemctl start postgresql
+
+chmod +x src/database/init_db.sh
+./src/database/init_db.sh
+```
+2. Get a bot token in [@BotFather](https://t.me/botfather)
+3. Copy the configuration file
 ```bash
 cd src
 cp .env.example .env
 ```
-3. Edit `.env` and add your token
+4. Edit `.env`
 ```
 API_TOKEN=your_bot_token_here
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=your_database_name_here
+DB_USER=your_database_user_here
+DB_PASSWORD=your_password_here
 ```
 > **Important**: NEVER commit the `.env` file to version control! Ensure it's listed in your `.gitignore`.
 
