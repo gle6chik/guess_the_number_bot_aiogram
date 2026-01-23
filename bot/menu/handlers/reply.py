@@ -1,12 +1,12 @@
 from aiogram import Router, types, F
 from aiogram.types import ReplyKeyboardRemove
 from aiogram.filters import StateFilter
-from ..keyboards.reply import get_start_menu
-from ..keyboards.inline import get_choice_of_difficulty
-from states import UserStates
-from text import text
-from text.emoji import Emoji
-from database.database import activity_checkpoint
+from bot.menu.keyboards.reply import get_start_menu
+from bot.menu.keyboards.inline import get_choice_of_difficulty
+from bot.states import UserStates
+from bot.text import text
+from bot.text.emoji import Emoji
+from bot.database.database import activity_checkpoint
 
 router = Router()
 

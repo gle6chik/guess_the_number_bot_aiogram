@@ -3,10 +3,19 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from bot.database.database import UserDB
 
 app = FastAPI(title='Admin panel')
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['http://localhost:3000', 'http://127.0.0.1:3000'],
+    # allow_credentials=True,
+    allow_methods=["*"],  # Разрешить все методы (GET, POST, etc.)
+    allow_headers=["*"]  # Разрешить все заголовки
+)
 
 class User:
     def __init__(self,

@@ -3,13 +3,13 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.filters import StateFilter
 from aiogram import Bot
-from ..keyboards.reply import get_start_menu
-from ..keyboards.inline import get_cleaning_of_statistics, get_rating_information
-from states import UserStates
-from commands.manager import CommandManager
-from text import text
-from database.database import UserDB, activity_checkpoint
-from text.emoji import Emoji
+from bot.menu.keyboards.reply import get_start_menu
+from bot.menu.keyboards.inline import get_cleaning_of_statistics, get_rating_information
+from bot.states import UserStates
+from bot.commands.manager import CommandManager
+from bot.text import text
+from bot.database.database import UserDB, activity_checkpoint
+from bot.text.emoji import Emoji
 
 router = Router()
 

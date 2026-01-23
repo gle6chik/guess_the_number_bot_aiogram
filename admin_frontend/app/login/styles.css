@@ -4,6 +4,7 @@ table {
     overflow: hidden;
     border: 1px solid var(--color-border);
     width: 80%;
+    margin-bottom: 10%;
 }
 
 th,
@@ -36,5 +37,5 @@ tbody tr:nth-child(odd) {
 }
 
 tbody tr:nth-child(odd):hover {
-    background-color: var(--color-gray-100);
+    background-color: oklch(94% 0.002 275);
 }

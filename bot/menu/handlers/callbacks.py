@@ -2,13 +2,13 @@ from aiogram import Router, types, F
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram import Bot
-from game.logic import start_game as play
-from states import UserStates
-from commands.manager import CommandManager
-from text import text
-from database.database import UserDB
-from ..keyboards.inline import get_statistics_cleaning_confirmation, get_cleaning_of_statistics
-from text.emoji import Emoji
+from bot.game.logic import start_game as play
+from bot.states import UserStates
+from bot.commands.manager import CommandManager
+from bot.text import text
+from bot.database.database import UserDB
+from bot.menu.keyboards.inline import get_statistics_cleaning_confirmation, get_cleaning_of_statistics
+from bot.text.emoji import Emoji
 
 router = Router()
 

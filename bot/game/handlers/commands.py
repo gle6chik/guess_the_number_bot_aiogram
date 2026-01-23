@@ -1,10 +1,10 @@
 from aiogram import Router, types
 from aiogram.filters import Command
 from aiogram.filters import StateFilter
-from states import UserStates
-from ..keyboards.reply import get_during_game_menu
-from text import text
-from database.database import activity_checkpoint
+from bot.states import UserStates
+from bot.game.keyboards.reply import get_during_game_menu
+from bot.text import text
+from bot.database.database import activity_checkpoint
 
 router = Router()
 

@@ -3,12 +3,12 @@ from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram import Bot
 from aiogram.types import ReplyKeyboardRemove
-from menu.keyboards.reply import get_start_menu
-from states import UserStates
-from commands.manager import CommandManager
-from game import logic
-from text import text
-from database.database import activity_checkpoint
+from bot.menu.keyboards.reply import get_start_menu
+from bot.states import UserStates
+from bot.commands.manager import CommandManager
+from bot.game import logic
+from bot.text import text
+from bot.database.database import activity_checkpoint
 
 router = Router()
 

@@ -1,8 +1,8 @@
 from aiogram import Router, types, F
 from aiogram.filters import StateFilter
-from states import UserStates
-from text import text
-from database.database import activity_checkpoint
+from bot.states import UserStates
+from bot.text import text
+from bot.database.database import activity_checkpoint
 
 router = Router()
 

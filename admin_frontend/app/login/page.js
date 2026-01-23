@@ -1,5 +1,9 @@
+'use client';
+
 import Link from "next/link";
 import TableUsers from "./TableUsers";
+import { useState, useEffect } from "react";
+import { getUsers } from "@/utils/api";
 
 const test_data = [
     {
@@ -85,19 +89,47 @@ const test_data = [
 ]
 
 export default function Login() {
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true)
+
+    async function loadUsers() {
+        try {
+            setLoading(true)
+            const data = await getUsers();
+            setUsers(data);
+        } catch (err) {
+            console.error('Fetch error:', err);
+            setUsers(test_data);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Загрузка пользователей
+    useEffect(() => {
+        loadUsers();
+    }, [])
+
     return (
         <div className="bg-background">
             <div className="flex flex-col">
+                <Link href='/'>
+                    <button className="bg-primary text-text-on-primary font-medium
+                px-6 py-3 rounded-4xl
+                hover:shadow-2xl hover:bg-hover hover:text-text transition duration-150
+                w-36 mt-2 ml-2 mb-1">
+                        Назад
+                    </button>
+                </Link>
                 <button className="bg-primary text-text-on-primary font-medium
                 px-6 py-3 rounded-4xl
                 hover:shadow-2xl hover:bg-hover hover:text-text transition duration-150
-                w-36 mt-2 ml-2 mb-10">
-                    <Link href='/'>
-                        Назад
-                    </Link>
+                w-64 mt-2 ml-2 mb-10"
+                    onClick={loadUsers}>
+                    {loading ? 'Загрузка...' : 'Обновить таблицу'}
                 </button>
-                <TableUsers users={test_data} />
+                <TableUsers users={users} />
             </div>
-        </div>
+        </div >
     );
 }

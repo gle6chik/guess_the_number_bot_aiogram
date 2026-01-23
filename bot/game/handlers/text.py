@@ -2,12 +2,12 @@ from aiogram import Router, types, F, Bot
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 import time
-from states import UserStates
-from game import logic
-from ..handlers.reply import leave_game_handler as game_over
-from text import text
-from text.emoji import Emoji
-from database.database import activity_checkpoint
+from bot.states import UserStates
+from bot.game import logic
+from bot.game.handlers.reply import leave_game_handler as game_over
+from bot.text import text
+from bot.text.emoji import Emoji
+from bot.database.database import activity_checkpoint
 
 router = Router()
 

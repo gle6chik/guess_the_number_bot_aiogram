@@ -1,9 +1,9 @@
 from aiogram import Bot
 from aiogram.fsm.state import State
 from aiogram.types import BotCommandScopeChat
-from .menu import get_menu_commands
-from .game import get_game_commands
-from states import UserStates
+from bot.commands.menu import get_menu_commands
+from bot.commands.game import get_game_commands
+from bot.states import UserStates
 
 class CommandManager:
     @staticmethod

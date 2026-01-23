@@ -1,9 +1,9 @@
 from aiogram import types
 import random
-from .keyboards.reply import get_during_game_menu
-from .difficulties import get_description, get_attempts, get_range
-from text import text
-from database.database import UserDB
+from bot.game.keyboards.reply import get_during_game_menu
+from bot.game.difficulties import get_description, get_attempts, get_range
+from bot.text import text
+from bot.database.database import UserDB
 
 user_games = {}
 

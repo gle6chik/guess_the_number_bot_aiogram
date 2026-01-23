@@ -1,4 +1,4 @@
-from .emoji import Emoji
+from bot.text.emoji import Emoji
 
 # Menu
 # Commands
