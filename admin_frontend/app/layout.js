@@ -8,10 +8,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={"antialiased"}>
+      <body>
         <header>
-          <div className="w-full h-32 font-bold bg-blue-600 flex justify-center items-center text-center">
-            <p className="text-7xl text-white">Угадай число</p>
+          <div className="w-full h-32 font-bold bg-primary flex justify-center hover:shadow-2xl items-center text-center">
+            <p className="text-7xl text-text-on-primary">Угадай число</p>
           </div>
         </header>
         {children}

@@ -1,26 +1,207 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ===== КОРОТКИЕ СЕМАНТИЧЕСКИЕ ПЕРЕМЕННЫЕ ===== */
+  /* (для быстрого доступа) */
+
+  /* Основные цвета - Deep Indigo */
+  --color-primary: oklch(58% 0.22 275);
+  --color-primary-hover: oklch(62% 0.22 275);
+  --color-primary-active: oklch(54% 0.22 275);
+  --color-primary-subtle: oklch(92% 0.05 275);
+
+  /* Нейтральные цвета - Professional Gray Scale */
+  --color-bg: oklch(99% 0.002 275);
+  --color-bg-elevated: oklch(100% 0 275);
+  --color-bg-muted: oklch(97% 0.004 275);
+
+  --color-text: oklch(22% 0.01 275);
+  --color-text-secondary: oklch(42% 0.008 275);
+  --color-text-tertiary: oklch(56% 0.006 275);
+  --color-text-on-primary: oklch(100% 0 275);
+
+  /* Границы */
+  --color-border: oklch(88% 0.008 275);
+  --color-border-hover: oklch(78% 0.01 275);
+  --color-divider: oklch(92% 0.005 275);
+
+  /* Состояния */
+  --color-success: oklch(64% 0.18 150);
+  --color-warning: oklch(72% 0.2 75);
+  --color-error: oklch(62% 0.22 25);
+  --color-info: oklch(68% 0.18 240);
+
+  /* Интерактивные состояния (СОВРЕМЕННЫЕ) */
+  --color-hover: oklch(98% 0.004 275);
+  /* Субтильный hover */
+  --color-active: oklch(96% 0.006 275);
+  /* Еще более субтильный active */
+  --color-focus: oklch(58% 0.22 275 / 0.12);
+  /* Тонкое свечение */
+  --color-disabled: oklch(92% 0.003 275);
+  --color-disabled-text: oklch(68% 0.005 275);
+
+  /* Акцентные цвета */
+  --color-accent: oklch(70% 0.18 160);
+  /* Бирюзовый акцент */
+  --color-accent-subtle: oklch(94% 0.03 160);
+
+  /* ===== ПОЛНАЯ ПАЛИТРА ===== */
+
+  /* Основная сине-фиолетовая шкала */
+  --indigo-50: oklch(97% 0.012 275);
+  --indigo-100: oklch(94% 0.024 275);
+  --indigo-200: oklch(86% 0.05 275);
+  --indigo-300: oklch(76% 0.11 275);
+  --indigo-400: oklch(68% 0.16 275);
+  --indigo-500: oklch(58% 0.22 275);
+  /* Основной цвет */
+  --indigo-600: oklch(52% 0.22 275);
+  --indigo-700: oklch(46% 0.2 275);
+  --indigo-800: oklch(38% 0.18 275);
+  --indigo-900: oklch(30% 0.16 275);
+  --indigo-950: oklch(22% 0.14 275);
+
+  /* Нейтральная серая шкала */
+  --gray-50: oklch(99% 0.001 275);
+  --gray-100: oklch(96% 0.002 275);
+  --gray-200: oklch(92% 0.004 275);
+  --gray-300: oklch(87% 0.006 275);
+  --gray-400: oklch(74% 0.008 275);
+  --gray-500: oklch(58% 0.01 275);
+  --gray-600: oklch(45% 0.012 275);
+  --gray-700: oklch(35% 0.014 275);
+  --gray-800: oklch(26% 0.016 275);
+  --gray-900: oklch(18% 0.018 275);
+  --gray-950: oklch(12% 0.02 275);
+
+  /* Состояния - полная палитра */
+  --success-50: oklch(97% 0.04 150);
+  --success-500: var(--color-success);
+  --success-600: oklch(58% 0.18 150);
+
+  --warning-50: oklch(97% 0.05 75);
+  --warning-500: var(--color-warning);
+  --warning-600: oklch(66% 0.2 75);
+
+  --error-50: oklch(97% 0.05 25);
+  --error-500: var(--color-error);
+  --error-600: oklch(56% 0.22 25);
+
+  --info-50: oklch(96% 0.04 240);
+  --info-500: var(--color-info);
+  --info-600: oklch(62% 0.18 240);
+
+  /* Акцентные */
+  --teal-50: oklch(96% 0.04 160);
+  --teal-500: var(--color-accent);
+  --teal-600: oklch(64% 0.18 160);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  /* ===== СЕМАНТИЧЕСКИЕ ЦВЕТА ===== */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  /* Основные */
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-active: var(--color-primary-active);
+  --color-primary-subtle: var(--color-primary-subtle);
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Фон */
+  --color-bg: var(--color-bg);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-bg-muted: var(--color-bg-muted);
+
+  /* Текст */
+  --color-text: var(--color-text);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-text-on-primary: var(--color-text-on-primary);
+
+  /* Границы */
+  --color-border: var(--color-border);
+  --color-border-hover: var(--color-border-hover);
+  --color-divider: var(--color-divider);
+
+  /* Состояния */
+  --color-success: var(--color-success);
+  --color-success-subtle: var(--success-50);
+  --color-warning: var(--color-warning);
+  --color-warning-subtle: var(--warning-50);
+  --color-error: var(--color-error);
+  --color-error-subtle: var(--error-50);
+  --color-info: var(--color-info);
+  --color-info-subtle: var(--info-50);
+
+  /* Интерактивные (СОВРЕМЕННЫЕ) */
+  --color-hover: var(--color-hover);
+  --color-active: var(--color-active);
+  --color-focus: var(--color-focus);
+  --color-disabled: var(--color-disabled);
+  --color-disabled-text: var(--color-disabled-text);
+
+  /* Акценты */
+  --color-accent: var(--color-accent);
+  --color-accent-subtle: var(--color-accent-subtle);
+
+  /* ===== ПОЛНАЯ ПАЛИТРА ===== */
+
+  /* Indigo */
+  --color-indigo-50: var(--indigo-50);
+  --color-indigo-100: var(--indigo-100);
+  --color-indigo-200: var(--indigo-200);
+  --color-indigo-300: var(--indigo-300);
+  --color-indigo-400: var(--indigo-400);
+  --color-indigo-500: var(--indigo-500);
+  --color-indigo-600: var(--indigo-600);
+  --color-indigo-700: var(--indigo-700);
+  --color-indigo-800: var(--indigo-800);
+  --color-indigo-900: var(--indigo-900);
+  --color-indigo-950: var(--indigo-950);
+
+  /* Gray */
+  --color-gray-50: var(--gray-50);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+  --color-gray-950: var(--gray-950);
+
+  /* Success */
+  --color-success-50: var(--success-50);
+  --color-success-500: var(--success-500);
+  --color-success-600: var(--success-600);
+
+  /* Warning */
+  --color-warning-50: var(--warning-50);
+  --color-warning-500: var(--warning-500);
+  --color-warning-600: var(--warning-600);
+
+  /* Error */
+  --color-error-50: var(--error-50);
+  --color-error-500: var(--error-500);
+  --color-error-600: var(--error-600);
+
+  /* Info */
+  --color-info-50: var(--info-50);
+  --color-info-500: var(--info-500);
+  --color-info-600: var(--info-600);
+
+  /* Accent */
+  --color-teal-50: var(--teal-50);
+  --color-teal-500: var(--teal-500);
+  --color-teal-600: var(--teal-600);
+
+  /* ===== УТИЛИТАРНЫЕ ШОРТКАТЫ ===== */
+  --color-brand: var(--indigo-500);
+  --color-brand-light: var(--indigo-400);
+  --color-brand-dark: var(--indigo-700);
+  --color-bg-sidebar: var(--gray-950);
+  --color-bg-header: var(--gray-900);
+  --color-bg-toolbar: var(--gray-100);
 }
