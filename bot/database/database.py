@@ -1,5 +1,5 @@
 import psycopg2
-from config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
+from bot.config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
 from aiogram import types
 
 def activity_checkpoint(message: types.Message):
@@ -22,6 +22,13 @@ class UserDB:
         except psycopg2.Error as e:
             print(f"> Connecting error: {e}")
             raise
+
+    # =============
+    def get_all_users(self):
+        self.cur.execute("SELECT * FROM users")
+        results = self.cur.fetchall()
+        return results
+    # =============
     
     # Write active
     def write_active(self, user_id: int, username: str, first_name: str, last_name: str):
