@@ -1,12 +1,12 @@
-import './styles.css'
+import styles from './TableUsers.module.css';
 
 export default function TableUsers({ users }) {
     return (
-        <div className="flex flex-col items-center ml-2">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Пользователи</h1>
-            <table>
+        <div className="inline-flex">
+            <table className={styles.table}>
                 <thead>
                     <tr>
+                        <th>number</th>
                         <th>user_id</th>
                         <th>username</th>
                         <th>first_name</th>
@@ -16,9 +16,10 @@ export default function TableUsers({ users }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((element) => {
+                    {users.map((element, index) => {
                         return (
                             <tr key={element.user_id}>
+                                <td>{index + 1}</td>
                                 <td>{element.user_id}</td>
                                 <td>{element.username}</td>
                                 <td>{element.first_name}</td>
