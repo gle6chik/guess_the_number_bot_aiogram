@@ -1,5 +1,5 @@
 const styles = {
-    "primary": "inline-flex bg-primary rounded-2xl text-white text-lg font-bold py-2 px-5 hover:shadow-lg hover:bg-primary700 duration-150"
+    "primary": "inline-flex bg-primary rounded-2xl text-white text-lg font-bold py-2 px-5 hover:shadow-md hover:bg-primary600 duration-150"
 };
 
 export default function Button({ children, variant, onClick, additional }) {

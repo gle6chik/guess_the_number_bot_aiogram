@@ -5,6 +5,8 @@ import TableUsers from "./TableUsers";
 import { useState, useEffect } from "react";
 import { getUsers } from "@/utils/api";
 import Button from "@/components/ui/Button";
+import UsersChart from "../components/UsersChart";
+import { Users } from "lucide-react";
 
 const test_users = [
     {
@@ -286,7 +288,7 @@ export default function Login() {
                 </div>
                 <div
                     className="flex flex-row justify-between items-end
-                    mx-[5%] mb-2">
+                    mx-[5%] mb-4">
                     <h1 className="text-3xl text-foreground font-extrabold leading-none -mb-1.25">Пользователи</h1>
                     <Button
                         variant="primary"
@@ -297,8 +299,19 @@ export default function Login() {
                     </Button>
                 </div>
                 <TableUsers users={users} />
+                <div
+                    className="flex flex-row justify-between items-end
+                    mx-[5%] mb-4 mt-10">
+                    <h1 className="text-3xl text-foreground font-extrabold leading-none -mb-1.25">График пользователей</h1>
+                    <Button
+                        variant="primary"
+                        additional="mr-[-1px]"
+                    >
+                        Обновить график
+                    </Button>
+                </div>
+                <UsersChart />
             </div>
         </div>
-
     );
 }

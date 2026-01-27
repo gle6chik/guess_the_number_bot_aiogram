@@ -38,11 +38,11 @@
 
 /* Тело */
 .table tbody tr:nth-child(even) {
-    background-color: var(--color-gray-200);
+    background-color: var(--color-gray-100);
 }
 
 .table tbody tr:nth-child(even):hover {
-    background-color: var(--color-gray-300);
+    background-color: var(--color-gray-200);
 }
 
 .table tbody tr:nth-child(odd) {
