@@ -3,32 +3,34 @@
 @import "tw-animate-css";
 
 :root {
-  /* ОСНОВНЫЕ ЦВЕТА */
+  /* Основные цвета */
   --primary: oklch(0.623 0.214 259.815);
+
+  --background: oklch(99.355% 0.00552 212.059);
+
+  --text: oklch(0.21 0.034 264.665);
+  --texthover: oklch(0.274 0.033 256.848);
+
   --success: oklch(0.627 0.194 149.214);
   --error: oklch(0.637 0.237 25.331);
   --warning: oklch(0.707 0.213 47.604);
   --info: oklch(0.556 0.136 243.157);
   --muted: oklch(0.968 0.007 247.896);
 
-  /* ТЕМНЫЕ ВЕРСИИ (динамически через CSS, не переменные) */
-  /* Они будут создаваться через color-mix() */
-
-  /* ШКАЛА PRIMARY */
+  /* Оттенки primary */
   --primary50: oklch(0.97 0.07 260);
   --primary100: oklch(0.93 0.12 260);
   --primary200: oklch(0.85 0.16 260);
   --primary300: oklch(0.77 0.18 260);
   --primary400: oklch(0.69 0.19 260);
   --primary500: var(--primary);
-  /* ссылка на основной */
   --primary600: oklch(0.55 0.22 260);
   --primary700: oklch(0.47 0.21 260);
   --primary800: oklch(0.39 0.19 260);
   --primary900: oklch(0.31 0.16 260);
   --primary950: oklch(0.23 0.13 260);
 
-  /* ШКАЛА MUTED PRIMARY */
+  /* Оттенки muted_primary */
   --primarymuted50: oklch(0.97 0.02 260);
   --primarymuted100: oklch(0.93 0.04 260);
   --primarymuted200: oklch(0.85 0.06 260);
@@ -40,28 +42,25 @@
   --primarymuted800: oklch(0.39 0.14 260);
   --primarymuted900: oklch(0.31 0.12 260);
   --primarymuted950: oklch(0.23 0.10 260);
-
-  /* ОСНОВНЫЕ (убрали серую шкалу) */
-  --background: oklch(99.355% 0.00552 212.059);
-  --text: oklch(0.21 0.034 264.665);
-  --texthover: oklch(0.274 0.033 256.848);
 }
 
-/* Подключаем к Tailwind */
+/* Подключение к Tailwind */
 @theme inline {
   /* Основные цвета */
+  --color-primary: var(--primary);
+
   --color-background: var(--background);
+
   --color-foreground: var(--text);
   --color-texthover: var(--texthover);
 
-  --color-primary: var(--primary);
   --color-success: var(--success);
   --color-error: var(--error);
   --color-warning: var(--warning);
   --color-info: var(--info);
   --color-muted: var(--muted);
 
-  /* Primary шкала */
+  /* Оттенки primary */
   --color-primary50: var(--primary50);
   --color-primary100: var(--primary100);
   --color-primary200: var(--primary200);
@@ -74,7 +73,7 @@
   --color-primary900: var(--primary900);
   --color-primary950: var(--primary950);
 
-  /* Muted primary шкала */
+  /* Оттенки muted primary */
   --color-primarymuted50: var(--primarymuted50);
   --color-primarymuted100: var(--primarymuted100);
   --color-primarymuted200: var(--primarymuted200);
@@ -86,70 +85,6 @@
   --color-primarymuted800: var(--primarymuted800);
   --color-primarymuted900: var(--primarymuted900);
   --color-primarymuted950: var(--primarymuted950);
-}
-
-/* УТИЛИТЫ ДЛЯ ТЕМНЫХ ВЕРСИЙ С КОНТРОЛЕМ ЗАТЕМНЕНИЯ */
-@layer utilities {
-
-  /* Для фона */
-  .bg-primary-dark-10 {
-    background-color: color-mix(in oklch, var(--primary) 90%, black);
-  }
-
-  .bg-primary-dark-20 {
-    background-color: color-mix(in oklch, var(--primary) 80%, black);
-  }
-
-  .bg-primary-dark-30 {
-    background-color: color-mix(in oklch, var(--primary) 70%, black);
-  }
-
-  .bg-success-dark-10 {
-    background-color: color-mix(in oklch, var(--success) 90%, black);
-  }
-
-  .bg-success-dark-20 {
-    background-color: color-mix(in oklch, var(--success) 80%, black);
-  }
-
-  .bg-error-dark-10 {
-    background-color: color-mix(in oklch, var(--error) 90%, black);
-  }
-
-  .bg-error-dark-20 {
-    background-color: color-mix(in oklch, var(--error) 80%, black);
-  }
-
-  /* Для текста */
-  .text-primary-dark-10 {
-    color: color-mix(in oklch, var(--primary) 90%, black);
-  }
-
-  .text-primary-dark-20 {
-    color: color-mix(in oklch, var(--primary) 80%, black);
-  }
-
-  /* Универсальные классы (можно использовать с любым цветом) */
-  .darken-10 {
-    background-color: color-mix(in oklch, var(--color) 90%, black);
-  }
-
-  .darken-20 {
-    background-color: color-mix(in oklch, var(--color) 80%, black);
-  }
-
-  .darken-30 {
-    background-color: color-mix(in oklch, var(--color) 70%, black);
-  }
-
-  /* Hover утилиты */
-  .hover\:darken-10:hover {
-    background-color: color-mix(in oklch, var(--color) 90%, black) !important;
-  }
-
-  .hover\:darken-20:hover {
-    background-color: color-mix(in oklch, var(--color) 80%, black) !important;
-  }
 }
 
 @layer base {

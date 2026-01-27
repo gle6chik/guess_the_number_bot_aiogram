@@ -26,18 +26,18 @@ ChartJS.register(
 
 export default function UsersChart() {
     const [colors, setColors] = useState({
-        primary: 'rgb(75, 192, 192)'
+        primary: 'rgb(0, 0, 0)'
     });
 
     useEffect(() => {
         // Получение CSS-переменных из :root
         const root = document.documentElement;
         const primary = getComputedStyle(root)
-            .getPropertyValue('--color-primary')
+            .getPropertyValue('--color-primarymuted300')
             .trim();
 
         setColors({
-            primary: primary || 'rgb(75, 192, 192)'
+            primary: primary || 'rgb(0, 0, 0)'
         });
     }, []);
 
