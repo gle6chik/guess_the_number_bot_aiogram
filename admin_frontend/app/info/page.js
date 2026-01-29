@@ -3,10 +3,9 @@
 import Link from "next/link";
 import TableUsers from "./TableUsers";
 import { useState, useEffect } from "react";
-import { getUsers } from "@/utils/api";
+import { getUsers, getUsersForChart } from "@/utils/api";
 import Button from "@/components/ui/Button";
 import UsersChart from "../components/UsersChart";
-import { Users } from "lucide-react";
 
 const test_users = [
     {
@@ -91,190 +90,79 @@ const test_users = [
     }
 ]
 
-const test_user_statistics = [
+const test_users_for_chart = [
     {
-        "user_id": 1001,
-        "easy_games_played": 15,
-        "medium_games_played": 8,
-        "hard_games_played": 3,
-        "total_games_played": 26,
-        "easy_best_result": 120,
-        "medium_best_result": 85,
-        "hard_best_result": 40,
-        "games_won": 18,
-        "games_lost": 8,
-        "winning_percentage": 69.23,
-        "losing_percentage": 30.77,
-        "created_at": "2024-01-15T10:30:00Z",
-        "updated_at": "2024-01-22T14:45:00Z"
+        "total_quantity_of_users": 12,
+        "timestamp": "2026-01-29T16:47:44.522200+07:00"
     },
     {
-        "user_id": 1002,
-        "easy_games_played": 5,
-        "medium_games_played": 12,
-        "hard_games_played": 10,
-        "total_games_played": 27,
-        "easy_best_result": 95,
-        "medium_best_result": 78,
-        "hard_best_result": 65,
-        "games_won": 15,
-        "games_lost": 12,
-        "winning_percentage": 55.56,
-        "losing_percentage": 44.44,
-        "created_at": "2024-01-10T09:15:00Z",
-        "updated_at": "2024-01-21T16:20:00Z"
+        "total_quantity_of_users": 19,
+        "timestamp": "2026-01-29T16:48:44.522200+07:00"
     },
     {
-        "user_id": 1003,
-        "easy_games_played": 20,
-        "medium_games_played": 5,
-        "hard_games_played": 0,
-        "total_games_played": 25,
-        "easy_best_result": 150,
-        "medium_best_result": 60,
-        "hard_best_result": 0,
-        "games_won": 18,
-        "games_lost": 7,
-        "winning_percentage": 72.00,
-        "losing_percentage": 28.00,
-        "created_at": "2024-01-05T11:00:00Z",
-        "updated_at": "2024-01-20T12:30:00Z"
+        "total_quantity_of_users": 8,
+        "timestamp": "2026-01-29T16:49:44.522200+07:00"
     },
     {
-        "user_id": 1004,
-        "easy_games_played": 0,
-        "medium_games_played": 0,
-        "hard_games_played": 0,
-        "total_games_played": 0,
-        "easy_best_result": 0,
-        "medium_best_result": 0,
-        "hard_best_result": 0,
-        "games_won": 0,
-        "games_lost": 0,
-        "winning_percentage": 100.00,
-        "losing_percentage": 100.00,
-        "created_at": "2024-01-12T13:45:00Z",
-        "updated_at": "2024-01-12T13:45:00Z"
+        "total_quantity_of_users": 15,
+        "timestamp": "2026-01-29T16:50:44.522200+07:00"
     },
     {
-        "user_id": 1005,
-        "easy_games_played": 8,
-        "medium_games_played": 15,
-        "hard_games_played": 5,
-        "total_games_played": 28,
-        "easy_best_result": 110,
-        "medium_best_result": 92,
-        "hard_best_result": 55,
-        "games_won": 22,
-        "games_lost": 6,
-        "winning_percentage": 78.57,
-        "losing_percentage": 21.43,
-        "created_at": "2024-01-08T14:20:00Z",
-        "updated_at": "2024-01-19T10:15:00Z"
+        "total_quantity_of_users": 22,
+        "timestamp": "2026-01-29T16:51:44.522200+07:00"
     },
     {
-        "user_id": 1006,
-        "easy_games_played": 3,
-        "medium_games_played": 2,
-        "hard_games_played": 1,
-        "total_games_played": 6,
-        "easy_best_result": 80,
-        "medium_best_result": 50,
-        "hard_best_result": 30,
-        "games_won": 2,
-        "games_lost": 4,
-        "winning_percentage": 33.33,
-        "losing_percentage": 66.67,
-        "created_at": "2024-01-18T16:10:00Z",
-        "updated_at": "2024-01-22T09:45:00Z"
+        "total_quantity_of_users": 18,
+        "timestamp": "2026-01-29T16:52:44.522200+07:00"
     },
     {
-        "user_id": 1007,
-        "easy_games_played": 25,
-        "medium_games_played": 18,
-        "hard_games_played": 12,
-        "total_games_played": 55,
-        "easy_best_result": 145,
-        "medium_best_result": 105,
-        "hard_best_result": 88,
-        "games_won": 38,
-        "games_lost": 17,
-        "winning_percentage": 69.09,
-        "losing_percentage": 30.91,
-        "created_at": "2024-01-02T08:30:00Z",
-        "updated_at": "2024-01-22T18:00:00Z"
-    },
-    {
-        "user_id": 1008,
-        "easy_games_played": 10,
-        "medium_games_played": 10,
-        "hard_games_played": 10,
-        "total_games_played": 30,
-        "easy_best_result": 100,
-        "medium_best_result": 80,
-        "hard_best_result": 70,
-        "games_won": 20,
-        "games_lost": 10,
-        "winning_percentage": 66.67,
-        "losing_percentage": 33.33,
-        "created_at": "2024-01-14T12:00:00Z",
-        "updated_at": "2024-01-21T15:30:00Z"
-    },
-    {
-        "user_id": 1009,
-        "easy_games_played": 1,
-        "medium_games_played": 0,
-        "hard_games_played": 0,
-        "total_games_played": 1,
-        "easy_best_result": 65,
-        "medium_best_result": 0,
-        "hard_best_result": 0,
-        "games_won": 0,
-        "games_lost": 1,
-        "winning_percentage": 0.00,
-        "losing_percentage": 100.00,
-        "created_at": "2024-01-20T17:45:00Z",
-        "updated_at": "2024-01-20T18:20:00Z"
-    },
-    {
-        "user_id": 1010,
-        "easy_games_played": 12,
-        "medium_games_played": 20,
-        "hard_games_played": 15,
-        "total_games_played": 47,
-        "easy_best_result": 130,
-        "medium_best_result": 115,
-        "hard_best_result": 95,
-        "games_won": 32,
-        "games_lost": 15,
-        "winning_percentage": 68.09,
-        "losing_percentage": 31.91,
-        "created_at": "2024-01-03T10:45:00Z",
-        "updated_at": "2024-01-22T11:10:00Z"
+        "total_quantity_of_users": 25,
+        "timestamp": "2026-01-29T16:53:44.522200+07:00"
     }
-]
+];
 
-export default function Login() {
+export default function Info() {
     const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true)
+    const [loadingUsers, setLoadingUsers] = useState(true);
+
+    const [usersForChart, setUsersForChart] = useState([]);
+    const [loadingUsersForChart, setLoadingUsersForChart] = useState(true);
 
     async function loadUsers() {
         try {
-            setLoading(true)
+            setLoadingUsers(true)
             const data = await getUsers();
             setUsers(data);
         } catch (err) {
             console.error('Fetch error:', err);
             setUsers(test_users);
         } finally {
-            setLoading(false);
+            setLoadingUsers(false);
+        }
+    }
+
+    async function loadUsersForChart() {
+        try {
+            setLoadingUsersForChart(true)
+            const data = await getUsersForChart();
+            setUsersForChart(data);
+        } catch (err) {
+            console.error('Fetch error:', err);
+            setUsersForChart(test_users_for_chart);
+        } finally {
+            setLoadingUsersForChart(false);
         }
     }
 
     // Загрузка пользователей
     useEffect(() => {
         loadUsers();
-    }, [])
+    }, []);
+
+    // Загрузка пользователей для графика
+    useEffect(() => {
+        loadUsersForChart();
+    }, []);
 
     return (
         <div className="bg-background">
@@ -295,7 +183,7 @@ export default function Login() {
                         onClick={loadUsers}
                         additional="mr-[-1px]"
                     >
-                        {loading ? 'Загрузка...' : 'Обновить таблицу'}
+                        {loadingUsers ? 'Загрузка...' : 'Обновить таблицу'}
                     </Button>
                 </div>
                 <TableUsers users={users} />
@@ -305,12 +193,13 @@ export default function Login() {
                     <h1 className="text-3xl text-foreground font-extrabold leading-none -mb-1.25">График пользователей</h1>
                     <Button
                         variant="primary"
+                        onClick={loadUsersForChart}
                         additional="mr-[-1px]"
                     >
-                        Обновить график
+                        {loadingUsersForChart ? 'Загрузка... ' : 'Обновить график'}
                     </Button>
                 </div>
-                <UsersChart />
+                <UsersChart users={usersForChart} />
             </div>
         </div>
     );

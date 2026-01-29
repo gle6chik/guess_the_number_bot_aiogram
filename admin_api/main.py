@@ -55,5 +55,19 @@ async def get_users():
         })
     return result
 
+# GET /total_users
+@app.get("/total_users")
+async def get_total_users():
+    db = UserDB()
+    data = db.get_users_for_chart()
+    db.close()
+    result = []
+    for row in data:
+        result.append({
+            'total_quantity_of_users': row[0],
+            'timestamp': row[1]
+        })
+    return result
+
 if __name__ == '__main__':
     uvicorn.run(app, host='localhost', port=8080)

@@ -24,7 +24,17 @@ ChartJS.register(
     Legend
 );
 
-export default function UsersChart() {
+function formatDate(dateString) {
+    const date = new Date(dateString);
+
+    const day = date.getDate();
+    const month = date.toLocaleDateString("ru-RU", { month: "long" });
+    const year = date.getFullYear();
+
+    return [day, month, year];
+}
+
+export default function UsersChart({ users }) {
     const [colors, setColors] = useState({
         primary: 'rgb(0, 0, 0)'
     });
@@ -41,21 +51,15 @@ export default function UsersChart() {
         });
     }, []);
 
-    const testData = {
-        labels: ['1 дек', '2 дек', '3 дек', '4 дек', '5 дек', '6 дек', '7 дек'],
+    const data = {
+        labels: users.map(item => formatDate(item.timestamp)),
         datasets: [
             {
-                data: [12, 19, 8, 15, 22, 18, 25],
+                data: users.map(item => item.total_quantity_of_users),
                 borderColor: colors.primary,
                 backgroundColor: colors.primary,
-                tension: 0
-            },
-            // {
-            //     data: [45, 52, 48, 55, 58, 52, 60],
-            //     borderColor: 'rgb(255, 99, 132)',
-            //     backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            //     tension: 0
-            // }
+                tension: 0.35
+            }
         ]
     };
 
@@ -84,7 +88,9 @@ export default function UsersChart() {
                 ticks: {
                     callback: function (value) {
                         return value + ' чел.';
-                    }
+                    },
+                    stepSize: 1, // ← Шаг только 1
+                    precision: 0  // ← Без десятичных дробей
                 }
             },
             x: {
@@ -99,7 +105,7 @@ export default function UsersChart() {
     return (
         <div>
             <div className="bg-background h-100 w-[90%] mx-[5%] border border-gray-200 rounded-2xl">
-                <Line data={testData} options={options} />
+                <Line data={data} options={options} />
             </div>
         </div>
     );

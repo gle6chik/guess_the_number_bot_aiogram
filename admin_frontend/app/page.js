@@ -8,7 +8,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-text-primary mb-5">
           Админ-панель Telegram бота
         </h1>
-        <p className="text-text-tertiary mb-8">
+        <p className="text-gray-500 mb-8">
           Панель управления находится в разработке
         </p>
         <div>

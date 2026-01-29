@@ -1,6 +1,7 @@
 import psycopg2
-from bot.config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
 from aiogram import types
+from bot.config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
+
 
 def activity_checkpoint(message: types.Message):
     info = message.from_user
@@ -25,7 +26,21 @@ class UserDB:
 
     # =============
     def get_all_users(self):
-        self.cur.execute("SELECT * FROM users")
+        self.cur.execute("SELECT * FROM users;")
+        results = self.cur.fetchall()
+        return results
+    
+    def daily_task(self):
+        self.cur.execute("""
+INSERT INTO total_users_chart (total_quantity_of_users)
+SELECT
+COUNT(*) as total_quantity_of_users
+FROM users;
+""")
+        self.conn.commit()
+    
+    def get_users_for_chart(self):
+        self.cur.execute("SELECT total_quantity_of_users, timestamp FROM total_users_chart;")
         results = self.cur.fetchall()
         return results
     # =============
@@ -133,4 +148,3 @@ LIMIT 10;
     def close(self):
         self.cur.close()
         self.conn.close()
-

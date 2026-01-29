@@ -66,6 +66,13 @@ CREATE TRIGGER update_user_statistics_timestamp
     FOR EACH ROW
     EXECUTE FUNCTION auto_update_timestamp();
 
+-- Таблица для получения данных об общем количестве пользователей для графика
+CREATE TABLE total_users_chart (
+    id SERIAL PRIMARY KEY,
+    total_quantity_of_users INTEGER CHECK (total_quantity_of_users >= 0),
+    timestamp TIMESTAMPTZ DEFAULT NOW()
+);
+
 COMMIT;
 
 DO $$

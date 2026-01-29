@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
       <body>
         <header>
           <div
-            className="w-full h-32 hover:shadow-md duration-300
+            className="w-full h-32
             font-bold bg-primary
             flex justify-center items-center">
             <p className="text-7xl text-white">Угадай число</p>
