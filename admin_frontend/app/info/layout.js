@@ -7,18 +7,18 @@ export default function InfoLayout({ children }) {
                 {children}
             </main>
             <footer>
-                <div className="w-full h-64 bg-gray-500 mt-36 p-10 flex items-center justify-center">
-                    <div className="flex flex-col gap-3">
-                        <div className="flex flex-row gap-3 items-center justify-center">
-                            <img src="/icons8-telegram-app-50.png" alt="Telegram icon" />
+                <div className="w-full bg-gray-400 mt-36 px-10 py-4 flex justify-start">
+                    <div className="flex flex-col gap-2">
+                        <div className="flex flex-row items-center">
+                            <img src="/icons8-telegram-50.png" alt="Telegram icon" className="w-6 h-6 mr-2" />
                             <Link href="https://t.me/guess_this_number_bot">
-                                <p className="text-white text-2xl">Перейти в бота</p>
+                                <p className="text-white text-base">Перейти в бота</p>
                             </Link>
                         </div>
-                        <div className="flex flex-row gap-3 items-center">
-                            <img src="/icons8-github-50.png" alt="GitHub icon" />
+                        <div className="flex flex-row items-center">
+                            <img src="/icons8-github-50.png" alt="GitHub icon" className="w-6 h-6 mr-2" />
                             <Link href="https://github.com/gle6chik/guess_the_number_bot_aiogram">
-                                <p className="text-white text-2xl">Репозиторий GitHub</p>
+                                <p className="text-white text-base">Репозиторий GitHub</p>
                             </Link>
                         </div>
                     </div>
