@@ -31,7 +31,7 @@ function formatDate(dateString) {
     const month = date.toLocaleDateString("ru-RU", { month: "long" });
     const year = date.getFullYear();
 
-    return [day, month, year];
+    return [' ' + day, ' ' + month, ' ' + year];
 }
 
 export default function UsersChart({ users }) {
@@ -55,6 +55,7 @@ export default function UsersChart({ users }) {
         labels: users.map(item => formatDate(item.timestamp)),
         datasets: [
             {
+                label: 'Пользователи',
                 data: users.map(item => item.total_quantity_of_users),
                 borderColor: colors.primary,
                 backgroundColor: colors.primary,
@@ -89,8 +90,8 @@ export default function UsersChart({ users }) {
                     callback: function (value) {
                         return value + ' чел.';
                     },
-                    stepSize: 1, // ← Шаг только 1
-                    precision: 0  // ← Без десятичных дробей
+                    stepSize: 1,
+                    precision: 0
                 }
             },
             x: {

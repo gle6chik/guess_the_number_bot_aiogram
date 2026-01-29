@@ -154,13 +154,9 @@ export default function Info() {
         }
     }
 
-    // Загрузка пользователей
+    // Загрузка пользователей для таблицы и графика
     useEffect(() => {
         loadUsers();
-    }, []);
-
-    // Загрузка пользователей для графика
-    useEffect(() => {
         loadUsersForChart();
     }, []);
 

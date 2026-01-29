@@ -7,7 +7,7 @@ export default function InfoLayout({ children }) {
                 {children}
             </main>
             <footer>
-                <div className="w-full bg-gray-400 mt-36 px-10 py-4 flex justify-start">
+                <div className="w-full bg-gray-400 mt-36 px-10 py-4">
                     <div className="flex flex-col gap-2">
                         <div className="flex flex-row items-center">
                             <img src="/icons8-telegram-50.png" alt="Telegram icon" className="w-6 h-6 mr-2" />
