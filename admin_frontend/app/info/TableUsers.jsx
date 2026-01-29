@@ -1,5 +1,19 @@
 import styles from './TableUsers.module.css';
 
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZoneName: "longOffset"
+    };
+
+    return new Intl.DateTimeFormat("ru-RU", options).format(date);
+}
+
 export default function TableUsers({ users }) {
     return (
         <div className="inline-flex">
@@ -24,8 +38,8 @@ export default function TableUsers({ users }) {
                                 <td>{element.username}</td>
                                 <td>{element.first_name}</td>
                                 <td>{element.last_name}</td>
-                                <td>{element.created_at}</td>
-                                <td>{element.last_activity}</td>
+                                <td>{formatDate(element.created_at)}</td>
+                                <td>{formatDate(element.last_activity)}</td>
                             </tr>
                         );
                     })}
