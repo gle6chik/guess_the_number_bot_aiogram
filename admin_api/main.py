@@ -11,7 +11,7 @@ app = FastAPI(title='Admin panel')
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://localhost:3000', 'http://127.0.0.1:3000', '192.168.1.164:3000'],
+    allow_origins=['http://localhost:3000', 'http://127.0.0.1:3000'],
     # allow_credentials=True,
     allow_methods=["*"],  # Разрешить все методы (GET, POST, etc.)
     allow_headers=["*"]  # Разрешить все заголовки
